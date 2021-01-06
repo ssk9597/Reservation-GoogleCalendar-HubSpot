@@ -125,7 +125,6 @@ export default {
             //配列の長さを代入
             this.arrayLength = weekday.length - 1;
 
-            console.log(weekday);
             return { weekday };
         },
         times() {
