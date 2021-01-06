@@ -1,7 +1,13 @@
 # PLUGINS
 
-**This directory is not required, you can delete it if you don't want to use it.**
+## fontawesome
 
-This directory contains Javascript plugins that you want to run before mounting the root Vue.js application.
+アイコンに関して
 
-More information about the usage of this directory in [the documentation](https://nuxtjs.org/guide/plugins).
+## vue-observer-visibility
+
+https://www.npmjs.com/package/vue-observe-visibility
+
+## vue-scrollto
+
+https://www.npmjs.com/package/vue-scrollto

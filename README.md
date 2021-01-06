@@ -1,20 +1,10 @@
-# frontend
+# 予約フォームの作成
 
-## Build Setup
+## どのような動作をするのか
 
-```bash
-# install dependencies
-$ npm install
+①Google カレンダーの空き状況を確認し空いている時間を表示する。
+② 予約をした後はそのデータを HubSpot に保存する。
 
-# serve with hot reload at localhost:3000
-$ npm run dev
+## エンジニア以外でも運用できるように
 
-# build for production and launch server
-$ npm run build
-$ npm run start
-
-# generate static project
-$ npm run generate
-```
-
-For detailed explanation on how things work, check out [Nuxt.js docs](https://nuxtjs.org).
+従業員や店舗の登録は microCMS を使用しています。

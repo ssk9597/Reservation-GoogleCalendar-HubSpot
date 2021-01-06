@@ -1,7 +1,9 @@
 # COMPONENTS
 
-**This directory is not required, you can delete it if you don't want to use it.**
+## Atoms
 
-The components directory contains your Vue.js Components.
+layouts やコンポーネント内で使うファイルを格納
 
-_Nuxt.js doesn't supercharge these components._
+## Element
+
+pages で使われるファイルを格納
