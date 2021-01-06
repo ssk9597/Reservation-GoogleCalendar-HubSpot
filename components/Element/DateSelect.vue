@@ -1,7 +1,6 @@
 <template>
     <div v-observe-visibility="visibilityChanged1" id="date">
         <h2 class="heading">ご希望の日時をお選びください</h2>
-        {{ store }}
         <WeekCalendar />
     </div>
 </template>

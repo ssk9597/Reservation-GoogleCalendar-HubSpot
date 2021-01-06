@@ -139,11 +139,9 @@ export default {
         },
         setLastWeek() {
             this.arrayNum--;
-            console.log('先週に進む');
         },
         setNextWeek() {
             this.arrayNum++;
-            console.log('翌週に進む');
         },
     },
 };
