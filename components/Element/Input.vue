@@ -1,30 +1,42 @@
 <template>
     <div class="input-container" v-observe-visibility="visibilityChanged3" id="input">
         <h2 class="heading">お客様の情報を入力してください</h2>
-        <div class="input-wrapper">
-            <div class="input-heading">
-                <h3 class="input-title">お名前</h3>
-                <label class="require-label">必須</label>
+        <ValidationObserver v-slot="{ invalid }">
+            <div class="input-wrapper">
+                <div class="input-heading">
+                    <h3 class="input-title">お名前</h3>
+                    <label class="require-label">必須</label>
+                </div>
+                <ValidationProvider rules="required" v-slot="{ errors }" name="お名前">
+                    <input class="input" type="text" v-model="username" />
+                    <span class="danger">{{ errors[0] }}</span>
+                </ValidationProvider>
             </div>
-            <input class="input" type="text" v-model="username" />
-        </div>
-        <div class="input-wrapper">
-            <div class="input-heading">
-                <h3 class="input-title">メールアドレス</h3>
-                <label class="require-label">必須</label>
+            <div class="input-wrapper">
+                <div class="input-heading">
+                    <h3 class="input-title">メールアドレス</h3>
+                    <label class="require-label">必須</label>
+                </div>
+                <ValidationProvider
+                    rules="required|email"
+                    v-slot="{ errors }"
+                    name="メールアドレス"
+                >
+                    <input class="input" type="email" v-model="userEmail" />
+                    <span class="danger">{{ errors[0] }}</span>
+                </ValidationProvider>
             </div>
-            <input class="input" type="email" v-model="userEmail" />
-        </div>
-        <div class="input-wrapper">
-            <div class="input-heading">
-                <h3 class="input-title">お悩み内容</h3>
-                <label class="label">任意</label>
+            <div class="input-wrapper">
+                <div class="input-heading">
+                    <h3 class="input-title">お悩み内容</h3>
+                    <label class="label">任意</label>
+                </div>
+                <textarea class="textarea" v-model="userText"></textarea>
             </div>
-            <textarea class="textarea" v-model="userText"></textarea>
-        </div>
-        <div class="btn-center">
-            <div class="booking" @click="reserve">予約する</div>
-        </div>
+            <div class="btn-center">
+                <button class="booking" @click="reserve" :disabled="invalid">予約する</button>
+            </div>
+        </ValidationObserver>
     </div>
 </template>
 
@@ -81,7 +93,7 @@ export default {
         visibilityChanged3() {
             this.$store.commit('visibilityChanged3');
         },
-        reserve() {
+        async reserve() {
             let data = new FormData();
             data.append('summary', this.summary);
             data.append('location', this.location);
@@ -91,6 +103,8 @@ export default {
             data.append('attendees1', this.attendees1);
             data.append('attendees2', this.attendees2);
             console.log(...data.entries());
+
+            await this.$axios.$post('http://localhost:5000/api/reserve', data);
         },
     },
 };
@@ -148,11 +162,16 @@ export default {
     max-width: 300px;
     width: 100%;
     height: 200px;
+    resize: none;
     border-radius: 10px;
     border: 1px solid #dddddd;
     background-color: #eeeeee;
     color: #111;
-    font-size: 1.25rem;
+}
+.danger {
+    color: #ff4136;
+    font-weight: bold;
+    font-size: 0.75rem;
 }
 .booking {
     display: inline-block;
@@ -162,6 +181,13 @@ export default {
     background-color: #89535a;
     color: #fff;
     font-weight: bold;
-    font-size: 1.5rem;
+    font-size: 1.25rem;
+    border: none;
+    &[disabled] {
+        color: rgba(16, 16, 16, 0.3);
+        background-color: rgba(239, 239, 239, 0.3);
+        border-color: rgba(118, 118, 118, 0.3);
+        cursor: not-allowed;
+    }
 }
 </style>

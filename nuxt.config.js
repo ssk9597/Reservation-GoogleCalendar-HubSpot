@@ -24,6 +24,7 @@ export default {
         '~/plugins/vue-scrollto',
         '~/plugins/vue-observe-visibility',
         '@/plugins/fontawesome',
+        { src: '@/plugins/vee-validate' },
     ],
 
     // Auto import components (https://go.nuxtjs.dev/config-components)
@@ -44,7 +45,9 @@ export default {
     axios: {},
 
     // Build Configuration (https://go.nuxtjs.dev/config-build)
-    build: {},
+    build: {
+        transpile: ['vee-validate/dist/rules'],
+    },
 
     env: { API_KEY },
 };
