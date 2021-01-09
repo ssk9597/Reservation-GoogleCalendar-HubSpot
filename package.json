@@ -21,6 +21,8 @@
         "cors": "^2.8.5",
         "css-wipe": "^4.3.0",
         "express": "^4.17.1",
+        "googleapis": "^67.0.0",
+        "jsonwebtoken": "^8.5.1",
         "nuxt": "^2.14.6",
         "vee-validate": "^3.4.5",
         "vue-observe-visibility": "^1.0.0",

@@ -7,7 +7,7 @@
                     <h3 class="input-title">お名前</h3>
                     <label class="require-label">必須</label>
                 </div>
-                <ValidationProvider rules="required" v-slot="{ errors }" name="お名前">
+                <ValidationProvider rules="required" v-slot="{ errors }" name="これ">
                     <input class="input" type="text" v-model="username" />
                     <span class="danger">{{ errors[0] }}</span>
                 </ValidationProvider>
@@ -17,11 +17,7 @@
                     <h3 class="input-title">メールアドレス</h3>
                     <label class="require-label">必須</label>
                 </div>
-                <ValidationProvider
-                    rules="required|email"
-                    v-slot="{ errors }"
-                    name="メールアドレス"
-                >
+                <ValidationProvider rules="required|email" v-slot="{ errors }" name="これ">
                     <input class="input" type="email" v-model="userEmail" />
                     <span class="danger">{{ errors[0] }}</span>
                 </ValidationProvider>
@@ -77,16 +73,10 @@ export default {
             return `ご予約者のお名前：${this.username}, メールアドレス：${this.userEmail}, お悩み内容：${this.userText}`;
         },
         start() {
-            return `T${this.$store.state.startTime}:00`;
+            return `2021-01-10T${this.$store.state.startTime}:00`;
         },
         end() {
-            return `T${this.$store.state.endTime}:00`;
-        },
-        attendees1() {
-            return this.$store.state.userEmail;
-        },
-        attendees2() {
-            return this.$store.state.employeeEmail;
+            return `2021-01-10T${this.$store.state.endTime}:00`;
         },
     },
     methods: {
@@ -94,17 +84,13 @@ export default {
             this.$store.commit('visibilityChanged3');
         },
         async reserve() {
-            let data = new FormData();
-            data.append('summary', this.summary);
-            data.append('location', this.location);
-            data.append('description', this.description);
-            data.append('start', this.start);
-            data.append('end', this.end);
-            data.append('attendees1', this.attendees1);
-            data.append('attendees2', this.attendees2);
-            console.log(...data.entries());
-
-            await this.$axios.$post('http://localhost:5000/api/reserve', data);
+            await this.$axios.$post('http://localhost:5000/api/reserve', {
+                summary: this.summary,
+                location: this.location,
+                description: this.description,
+                start: this.start,
+                end: this.end,
+            });
         },
     },
 };
@@ -183,6 +169,7 @@ export default {
     font-weight: bold;
     font-size: 1.25rem;
     border: none;
+    cursor: pointer;
     &[disabled] {
         color: rgba(16, 16, 16, 0.3);
         background-color: rgba(239, 239, 239, 0.3);
