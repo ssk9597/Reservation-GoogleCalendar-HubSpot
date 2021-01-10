@@ -1,7 +1,6 @@
 const router = require('express').Router();
 
 router.post('/reserve', (req, res) => {
-    console.log(req.body);
     try {
         const { google } = require('googleapis');
         const file = './googleCalendar.json';
