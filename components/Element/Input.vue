@@ -63,6 +63,9 @@ export default {
                 this.$store.commit('userText', value);
             },
         },
+        calendarID() {
+            return this.$store.state.employeeEmail;
+        },
         summary() {
             return `【A社】${this.username}様のご予約を承りました`;
         },
@@ -85,6 +88,7 @@ export default {
         },
         async reserve() {
             await this.$axios.$post('http://localhost:5000/api/reserve', {
+                calendarID: this.calendarID,
                 summary: this.summary,
                 location: this.location,
                 description: this.description,
@@ -92,6 +96,9 @@ export default {
                 end: this.end,
             });
         },
+    },
+    mounted() {
+        console.log(this.employees);
     },
 };
 </script>

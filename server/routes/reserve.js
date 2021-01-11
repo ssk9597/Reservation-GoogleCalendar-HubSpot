@@ -4,7 +4,7 @@ router.post('/reserve', (req, res) => {
     try {
         const { google } = require('googleapis');
         const file = './googleCalendar.json';
-        const calendarID = 'a7lmn19dksunu1n4bc2b9b9mc8@group.calendar.google.com';
+        const calendarID = req.body.calendarID;
 
         const event = {
             summary: req.body.summary,

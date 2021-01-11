@@ -29,6 +29,8 @@ export const state = () => ({
     username: '',
     userEmail: '',
     userText: '',
+    //従業員のメールアドレス(GoogleカレンダーのID)
+    employeeEmail: '',
     //footer
     isVisible1: true,
     isVisible2: true,
