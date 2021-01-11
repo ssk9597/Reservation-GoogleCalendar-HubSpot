@@ -18,6 +18,7 @@ router.post('/reserve', (req, res) => {
                 dateTime: req.body.end,
                 timeZone: 'Asia/Tokyo',
             },
+            attendees: [{ email: req.body.attendees1 }, { email: req.body.attendees2 }],
             reminders: {
                 useDefault: false,
                 overrides: [
@@ -33,7 +34,14 @@ router.post('/reserve', (req, res) => {
             'https://www.googleapis.com/auth/calendar',
             'https://www.googleapis.com/auth/calendar.events',
         ];
-        const jwt = new google.auth.JWT(key.client_email, null, key.private_key, scope);
+        const jwt = new google.auth.JWT(
+            key.client_email,
+            null,
+            key.private_key,
+            scope,
+            'wor.ryosasaki@gmail.com',
+            '106451966808694779138'
+        );
         const calendar = google.calendar('v3');
 
         jwt.authorize((err, response) => {

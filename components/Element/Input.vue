@@ -81,6 +81,12 @@ export default {
         end() {
             return `2021-01-10T${this.$store.state.endTime}:00`;
         },
+        attendees1() {
+            return this.$store.state.userEmail;
+        },
+        attendees2() {
+            return this.$store.state.employeeEmail;
+        },
     },
     methods: {
         visibilityChanged3() {
@@ -94,11 +100,10 @@ export default {
                 description: this.description,
                 start: this.start,
                 end: this.end,
+                attendees1: this.attendees1,
+                attendees2: this.attendees2,
             });
         },
-    },
-    mounted() {
-        console.log(this.employees);
     },
 };
 </script>
