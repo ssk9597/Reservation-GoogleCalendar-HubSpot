@@ -76,10 +76,10 @@ export default {
             return `ご予約者のお名前：${this.username}, メールアドレス：${this.userEmail}, お悩み内容：${this.userText}`;
         },
         start() {
-            return `2021-01-10T${this.$store.state.startTime}:00`;
+            return `2021-01-24T${this.$store.state.startTime}:00`;
         },
         end() {
-            return `2021-01-10T${this.$store.state.endTime}:00`;
+            return `2021-01-24T${this.$store.state.endTime}:00`;
         },
         attendees1() {
             return this.$store.state.userEmail;

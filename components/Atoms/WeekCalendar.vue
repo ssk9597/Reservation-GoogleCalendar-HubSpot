@@ -35,25 +35,25 @@
                     <tr class="table-tr" v-for="(time, index) in times" :key="index">
                         <th class="table-th sticky">{{ time }}</th>
                         <td class="table-td" @click="chooseTime(index)">
-                            <fa :icon="['far', 'circle']" />
+                            <fa :icon="trueDay ? ['far', 'circle'] : 'times'" />
                         </td>
                         <td class="table-td">
-                            <fa icon="times" />
+                            <fa :icon="falseDay ? ['far', 'circle'] : 'times'" />
                         </td>
                         <td class="table-td" @click="chooseTime(index)">
-                            <fa :icon="['far', 'circle']" />
+                            <fa :icon="trueDay ? ['far', 'circle'] : 'times'" />
                         </td>
                         <td class="table-td">
-                            <fa icon="times" />
+                            <fa :icon="falseDay ? ['far', 'circle'] : 'times'" />
                         </td>
                         <td class="table-td" @click="chooseTime(index)">
-                            <fa :icon="['far', 'circle']" />
+                            <fa :icon="trueDay ? ['far', 'circle'] : 'times'" />
                         </td>
                         <td class="table-td">
-                            <fa icon="times" />
+                            <fa :icon="falseDay ? ['far', 'circle'] : 'times'" />
                         </td>
                         <td class="table-td" @click="chooseTime(index)">
-                            <fa :icon="['far', 'circle']" />
+                            <fa :icon="trueDay ? ['far', 'circle'] : 'times'" />
                         </td>
                     </tr>
                 </tbody>
@@ -73,6 +73,8 @@ export default {
             day: '',
             arrayNum: 0,
             arrayLength: 0,
+            trueDay: true,
+            falseDay: false,
         };
     },
     computed: {
