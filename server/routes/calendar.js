@@ -66,7 +66,7 @@ router.post('/reserve', (req, res) => {
                 timeZone: 'Asia/Tokyo',
             },
             //こちらを追加するとエラーが発生するため一時期コメント化
-            attendees: [{ email: req.body.attendees1 }, { email: req.body.attendees2 }],
+            // attendees: [{ email: req.body.attendees1 }, { email: req.body.attendees2 }],
             reminders: {
                 useDefault: false,
                 overrides: [
@@ -86,9 +86,9 @@ router.post('/reserve', (req, res) => {
             key.client_email,
             null,
             key.private_key,
-            scope,
-            'wor.ryosasaki@gmail.com',
-            '106451966808694779138'
+            scope
+            // 'wor.ryosasaki@gmail.com',
+            // '106451966808694779138'
         );
         const calendar = google.calendar('v3');
 

@@ -93,16 +93,23 @@ export default {
             this.$store.commit('visibilityChanged3');
         },
         async reserve() {
-            await this.$axios.$post('http://localhost:5000/api/reserve', {
-                calendarID: this.calendarID,
-                summary: this.summary,
-                location: this.location,
-                description: this.description,
-                start: this.start,
-                end: this.end,
-                attendees1: this.attendees1,
-                attendees2: this.attendees2,
-            });
+            await this.$axios
+                .$post('http://localhost:5000/api/reserve', {
+                    calendarID: this.calendarID,
+                    summary: this.summary,
+                    location: this.location,
+                    description: this.description,
+                    start: this.start,
+                    end: this.end,
+                    attendees1: this.attendees1,
+                    attendees2: this.attendees2,
+                })
+                .then(() => {
+                    this.$router.push('/thanks');
+                })
+                .catch((e) => {
+                    console.log(e);
+                });
         },
     },
 };
