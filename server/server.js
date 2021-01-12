@@ -11,9 +11,9 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 
 //requestAPI
-const reserveRoutes = require('./routes/reserve');
+const calendarRoutes = require('./routes/calendar');
 
-app.use('/api', reserveRoutes);
+app.use('/api', calendarRoutes);
 
 app.listen(5000, err => {
     if (err) {
