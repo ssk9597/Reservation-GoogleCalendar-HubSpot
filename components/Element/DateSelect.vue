@@ -11,11 +11,6 @@ export default {
     components: {
         WeekCalendar,
     },
-    // computed: {
-    //     store() {
-    //         return this.$store.state.store;
-    //     },
-    // },
     methods: {
         visibilityChanged1() {
             this.$store.commit('visibilityChanged1');

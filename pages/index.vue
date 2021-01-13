@@ -3,7 +3,7 @@
         <!-- エリアソート -->
         <AreaSort :prefectures="prefectures" />
         <!-- 店舗選択 -->
-        <StoreSelect :storeNames="storeNames" />
+        <StoreSelect :storeNames="storeNames" :employees="employees" />
         <!-- 日付選択 -->
         <DateSelect />
         <!-- スタッフ選択 -->
@@ -37,17 +37,11 @@ export default {
                 'X-API-KEY': process.env.API_KEY,
             },
         });
-        let receive = await $axios.$get(
-            'http://localhost:5000/api/receive/a7lmn19dksunu1n4bc2b9b9mc8@group.calendar.google.com'
-        );
-
-        console.log(receive);
 
         return {
             prefectures,
             storeNames,
             employees,
-            receive,
         };
     },
     components: {
@@ -63,9 +57,6 @@ export default {
             storeNames: '',
             employees: '',
         };
-    },
-    mounted() {
-        // console.log(this.employees);
     },
 };
 </script>
