@@ -41,36 +41,37 @@ export default {
     computed: {
         username: {
             get() {
-                return this.$store.state.username;
+                return this.$store.state.input.username;
             },
             set(value) {
-                this.$store.commit('username', value);
+                this.$store.commit('input/username', value);
             },
         },
         userEmail: {
             get() {
-                return this.$store.state.userEmail;
+                return this.$store.state.input.userEmail;
             },
             set(value) {
-                this.$store.commit('userEmail', value);
+                this.$store.commit('input/userEmail', value);
             },
         },
         userText: {
             get() {
-                return this.$store.state.userText;
+                return this.$store.state.input.userText;
             },
             set(value) {
-                this.$store.commit('userText', value);
+                this.$store.commit('input/userText', value);
             },
         },
+        //POSTで送る内容
         calendarID() {
-            return this.$store.state.employeeEmail;
+            return this.$store.state.staffSelect.employeeEmail;
         },
         summary() {
             return `【A社】${this.username}様のご予約を承りました`;
         },
         location() {
-            return this.$store.state.store;
+            return this.$store.state.storeSelect.store;
         },
         description() {
             return `ご予約者のお名前：${this.username}, メールアドレス：${this.userEmail}, お悩み内容：${this.userText}`;
@@ -82,15 +83,15 @@ export default {
             return `2021-01-24T${this.$store.state.endTime}:00`;
         },
         attendees1() {
-            return this.$store.state.userEmail;
+            return this.$store.state.input.userEmail;
         },
         attendees2() {
-            return this.$store.state.employeeEmail;
+            return this.$store.state.staffSelect.employeeEmail;
         },
     },
     methods: {
         visibilityChanged3() {
-            this.$store.commit('visibilityChanged3');
+            this.$store.commit('footer/visibilityChanged3');
         },
         async reserve() {
             await this.$axios

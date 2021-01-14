@@ -17,13 +17,13 @@
 export default {
     computed: {
         isVisible1() {
-            return this.$store.state.isVisible1;
+            return this.$store.state.footer.isVisible1;
         },
         isVisible2() {
-            return this.$store.state.isVisible2;
+            return this.$store.state.footer.isVisible2;
         },
         isVisible3() {
-            return this.$store.state.isVisible3;
+            return this.$store.state.footer.isVisible3;
         },
     },
     methods: {

@@ -20,13 +20,13 @@ export default {
     props: ['storeNames', 'employees'],
     computed: {
         store() {
-            return this.$store.state.store;
+            return this.$store.state.storeSelect.store;
         },
     },
     methods: {
         selectStore(name) {
-            this.$store.commit('selectStore', name);
-            this.$store.dispatch('getEmployeeAction');
+            this.$store.commit('storeSelect/selectStore', name);
+            this.$store.dispatch('storeSelect/getEmployeeAction');
             this.$scrollTo('#date');
         },
     },

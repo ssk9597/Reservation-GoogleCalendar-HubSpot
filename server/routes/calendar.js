@@ -65,7 +65,7 @@ router.post('/reserve', (req, res) => {
                 dateTime: req.body.end,
                 timeZone: 'Asia/Tokyo',
             },
-            //こちらを追加するとエラーが発生するため一時期コメント化
+            //GSuiteじゃないとエラーが出るっぽい
             // attendees: [{ email: req.body.attendees1 }, { email: req.body.attendees2 }],
             reminders: {
                 useDefault: false,
@@ -87,6 +87,7 @@ router.post('/reserve', (req, res) => {
             null,
             key.private_key,
             scope
+            //GSuiteじゃないとエラーが出るっぽい
             // 'wor.ryosasaki@gmail.com',
             // '106451966808694779138'
         );

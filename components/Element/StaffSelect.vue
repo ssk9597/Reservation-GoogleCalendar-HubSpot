@@ -21,16 +21,16 @@ export default {
     props: ['employees'],
     computed: {
         store() {
-            return this.$store.state.store;
+            return this.$store.state.storeSelect.store;
         },
     },
     methods: {
         selectStaff(email) {
-            this.$store.commit('selectStaff', email);
+            this.$store.commit('staffSelect/selectStaff', email);
             this.$scrollTo('#input');
         },
         visibilityChanged2() {
-            this.$store.commit('visibilityChanged2');
+            this.$store.commit('footer/visibilityChanged2');
         },
     },
 };

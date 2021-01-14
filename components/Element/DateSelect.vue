@@ -13,7 +13,7 @@ export default {
     },
     methods: {
         visibilityChanged1() {
-            this.$store.commit('visibilityChanged1');
+            this.$store.commit('footer/visibilityChanged1');
         },
     },
 };

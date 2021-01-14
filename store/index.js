@@ -1,6 +1,4 @@
 export const state = () => ({
-    //店名
-    store: '',
     //時間の取得
     times: [
         '09:00',
@@ -25,35 +23,9 @@ export const state = () => ({
     ],
     startTime: '',
     endTime: '',
-    //フォーム
-    username: '',
-    userEmail: '',
-    userText: '',
-    //従業員のメールアドレス(GoogleカレンダーのID)
-    employeeEmail: '',
-    //footer
-    isVisible1: true,
-    isVisible2: true,
-    isVisible3: true,
-
-    employees: [],
 });
 
 export const mutations = {
-    //setter
-    username(state, username) {
-        state.username = username;
-    },
-    userEmail(state, userEmail) {
-        state.userEmail = userEmail;
-    },
-    userText(state, userText) {
-        state.userText = userText;
-    },
-    //店名
-    selectStore(state, payload) {
-        state.store = payload;
-    },
     //時間の選択
     chooseTime(state, payload) {
         state.startTime = state.times[payload];
@@ -65,56 +37,6 @@ export const mutations = {
             state.endTime = state.times[payload + 2];
         }
     },
-    //従業員の選択
-    selectStaff(state, payload) {
-        state.employeeEmail = payload;
-    },
-    //footer
-    visibilityChanged1(state) {
-        state.isVisible1 = !state.isVisible1;
-    },
-    visibilityChanged2(state) {
-        state.isVisible2 = !state.isVisible2;
-    },
-    visibilityChanged3(state) {
-        state.isVisible3 = !state.isVisible3;
-    },
-    setEmployee(state, payload) {
-        state.employees = payload;
-
-        //選択された店舗の従業員数
-        let storeEmployee = [];
-
-        state.employees.contents.forEach(employee => {
-            if (state.store === employee.storeName.location) {
-                //選択された店舗の従業員数
-                storeEmployee.push(employee);
-
-                console.log(`http://localhost:5000/api/receive/${employee.calendar_Id}`);
-                this.$axios
-                    .$get(`http://localhost:5000/api/receive/${employee.calendar_Id}`)
-                    .then(res => {
-                        res.message.forEach(data => {
-                            console.log(data);
-                        });
-                    })
-                    .catch(err => {
-                        console.log(err);
-                    });
-            }
-        });
-
-        console.log('選択された店舗の従業員数は' + storeEmployee.length + '名です');
-    },
 };
 
-export const actions = {
-    async getEmployeeAction({ commit }) {
-        const employees = await this.$axios.$get('https://meeting.microcms.io/api/v1/employee', {
-            headers: {
-                'X-API-KEY': process.env.API_KEY,
-            },
-        });
-        commit('setEmployee', employees);
-    },
-};
+export const actions = {};
