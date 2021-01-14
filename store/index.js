@@ -35,6 +35,8 @@ export const state = () => ({
     isVisible1: true,
     isVisible2: true,
     isVisible3: true,
+
+    employees: [],
 });
 
 export const mutations = {
@@ -77,6 +79,42 @@ export const mutations = {
     visibilityChanged3(state) {
         state.isVisible3 = !state.isVisible3;
     },
+    setEmployee(state, payload) {
+        state.employees = payload;
+
+        //選択された店舗の従業員数
+        let storeEmployee = [];
+
+        state.employees.contents.forEach(employee => {
+            if (state.store === employee.storeName.location) {
+                //選択された店舗の従業員数
+                storeEmployee.push(employee);
+
+                console.log(`http://localhost:5000/api/receive/${employee.calendar_Id}`);
+                this.$axios
+                    .$get(`http://localhost:5000/api/receive/${employee.calendar_Id}`)
+                    .then(res => {
+                        res.message.forEach(data => {
+                            console.log(data);
+                        });
+                    })
+                    .catch(err => {
+                        console.log(err);
+                    });
+            }
+        });
+
+        console.log('選択された店舗の従業員数は' + storeEmployee.length + '名です');
+    },
 };
 
-export const actions = {};
+export const actions = {
+    async getEmployeeAction({ commit }) {
+        const employees = await this.$axios.$get('https://meeting.microcms.io/api/v1/employee', {
+            headers: {
+                'X-API-KEY': process.env.API_KEY,
+            },
+        });
+        commit('setEmployee', employees);
+    },
+};

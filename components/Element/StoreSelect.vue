@@ -26,24 +26,8 @@ export default {
     methods: {
         selectStore(name) {
             this.$store.commit('selectStore', name);
+            this.$store.dispatch('getEmployeeAction');
             this.$scrollTo('#date');
-
-            //対象店舗の従業員のカレンダーIDを取り出す。
-            let calendarId = [];
-            this.employees.contents.forEach((employee) => {
-                if (this.store === employee.storeName.location) {
-                    calendarId.push(employee.calendar_Id);
-                    console.log(`http://localhost:5000/api/receive/${employee.calendar_Id}`);
-                    this.$axios
-                        .$get(`http://localhost:5000/api/receive/${employee.calendar_Id}`)
-                        .then((res) => {
-                            console.log(res);
-                        })
-                        .catch((err) => {
-                            console.log(err);
-                        });
-                }
-            });
         },
     },
 };
