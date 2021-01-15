@@ -28,15 +28,15 @@
                         <th class="table-th sticky"></th>
                         <th
                             class="table-th"
-                            v-for="(weekday, index1) in weekdays[arrayNum]"
-                            :key="index1"
+                            v-for="(weekday, index) in weekdays[arrayNum]"
+                            :key="index"
                         >
                             {{ weekday.day }}
                         </th>
                     </tr>
                 </thead>
-                <tbody>
-                    <tr class="table-tr" v-for="(time, index) in times" :key="index">
+                <tbody v-for="(weekday, index) in weekdays[arrayNum]" :key="index">
+                    <tr class="table-tr" v-for="(time, index) in weekday.time" :key="index">
                         <th class="table-th sticky">
                             {{ time }}
                         </th>
@@ -92,7 +92,8 @@ export default {
     },
     methods: {
         chooseTime(num) {
-            this.$store.commit('weekCalendar/chooseTime', num);
+            console.log(num);
+            this.$store.commit('weekCalendar/chooseTime', num, num2);
             this.$scrollTo('#staff');
         },
         setLastWeek() {
@@ -105,6 +106,7 @@ export default {
     mounted() {
         this.$store.commit('weekCalendar/weekdays');
         console.log(this.$store.state.weekCalendar.weekdays);
+        console.log(this.times);
     },
 };
 </script>
