@@ -3,15 +3,30 @@
         <h2 class="heading">お客様の情報を入力してください</h2>
         <ValidationObserver v-slot="{ invalid }">
             <div class="input-wrapper">
-                <div class="input-heading">
-                    <h3 class="input-title">お名前</h3>
-                    <label class="require-label">必須</label>
+                <div class="input-wrap">
+                    <div class="input-block">
+                        <div class="input-heading">
+                            <h3 class="input-title">姓</h3>
+                            <label class="require-label">必須</label>
+                        </div>
+                        <ValidationProvider rules="required" v-slot="{ errors }" name="これ">
+                            <input class="input" type="text" v-model="firstName" />
+                            <span class="danger">{{ errors[0] }}</span>
+                        </ValidationProvider>
+                    </div>
+                    <div class="input-block">
+                        <div class="input-heading">
+                            <h3 class="input-title">名</h3>
+                            <label class="require-label">必須</label>
+                        </div>
+                        <ValidationProvider rules="required" v-slot="{ errors }" name="これ">
+                            <input class="input" type="text" v-model="lastName" />
+                            <span class="danger">{{ errors[0] }}</span>
+                        </ValidationProvider>
+                    </div>
                 </div>
-                <ValidationProvider rules="required" v-slot="{ errors }" name="これ">
-                    <input class="input" type="text" v-model="username" />
-                    <span class="danger">{{ errors[0] }}</span>
-                </ValidationProvider>
             </div>
+
             <div class="input-wrapper">
                 <div class="input-heading">
                     <h3 class="input-title">メールアドレス</h3>
@@ -39,12 +54,20 @@
 <script>
 export default {
     computed: {
-        username: {
+        firstName: {
             get() {
-                return this.$store.state.input.username;
+                return this.$store.state.input.firstName;
             },
             set(value) {
-                this.$store.commit('input/username', value);
+                this.$store.commit('input/firstName', value);
+            },
+        },
+        lastName: {
+            get() {
+                return this.$store.state.input.lastName;
+            },
+            set(value) {
+                this.$store.commit('input/lastName', value);
             },
         },
         userEmail: {
@@ -68,13 +91,13 @@ export default {
             return this.$store.state.staffSelect.employeeEmail;
         },
         summary() {
-            return `【A社】${this.username}様のご予約を承りました`;
+            return `【A社】${this.firstName} ${this.lastName}様のご予約を承りました`;
         },
         location() {
             return this.$store.state.storeSelect.store;
         },
         description() {
-            return `ご予約者のお名前：${this.username}, メールアドレス：${this.userEmail}, お悩み内容：${this.userText}`;
+            return `ご予約者のお名前：${this.firstName} ${this.lastName}, メールアドレス：${this.userEmail}, お悩み内容：${this.userText}`;
         },
         start() {
             return `2021-01-24T${this.$store.state.weekCalendar.startTime}:00`;
@@ -122,6 +145,18 @@ export default {
     width: 100%;
     padding-bottom: 24px;
     margin: 0 auto;
+}
+.input-wrap {
+    display: flex;
+}
+.input-block {
+    flex-basis: 48%;
+    &:first-child {
+        margin-right: 1%;
+    }
+    &:last-child {
+        margin-left: 1%;
+    }
 }
 .input-heading {
     display: flex;

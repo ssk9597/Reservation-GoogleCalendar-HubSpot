@@ -1,14 +1,18 @@
 export const state = () => ({
     //フォーム
-    username: '',
+    firstName: '',
+    lastName: '',
     userEmail: '',
     userText: '',
 });
 
 export const mutations = {
     //setter
-    username(state, username) {
-        state.username = username;
+    firstName(state, firstName) {
+        state.firstName = firstName;
+    },
+    lastName(state, lastName) {
+        state.lastName = lastName;
     },
     userEmail(state, userEmail) {
         state.userEmail = userEmail;
@@ -17,5 +21,3 @@ export const mutations = {
         state.userText = userText;
     },
 };
-
-export const actions = {};

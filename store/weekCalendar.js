@@ -79,7 +79,6 @@ export const mutations = {
                     }
                 }
             }
-            // weekData[7] = state.times;
             state.weekdays.push(weekData);
         }
         //配列の長さを代入

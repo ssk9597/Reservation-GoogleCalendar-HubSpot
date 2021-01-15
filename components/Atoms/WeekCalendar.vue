@@ -93,7 +93,7 @@ export default {
     methods: {
         chooseTime(num) {
             console.log(num);
-            this.$store.commit('weekCalendar/chooseTime', num, num2);
+            this.$store.commit('weekCalendar/chooseTime', num);
             this.$scrollTo('#staff');
         },
         setLastWeek() {
@@ -106,7 +106,6 @@ export default {
     mounted() {
         this.$store.commit('weekCalendar/weekdays');
         console.log(this.$store.state.weekCalendar.weekdays);
-        console.log(this.times);
     },
 };
 </script>
