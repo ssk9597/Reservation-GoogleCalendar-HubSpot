@@ -24,16 +24,22 @@
         <div class="table-header">
             <table class="table">
                 <thead class="table-thead">
-                    <tr class="table-tr" v-for="(weekday, index) in weekdays" :key="index">
+                    <tr class="table-tr">
                         <th class="table-th sticky"></th>
-                        <th class="table-th" v-for="(day, index) in weekday[arrayNum]" :key="index">
-                            {{ day }}
+                        <th
+                            class="table-th"
+                            v-for="(weekday, index) in weekdays[arrayNum]"
+                            :key="index"
+                        >
+                            {{ weekday }}
                         </th>
                     </tr>
                 </thead>
                 <tbody>
                     <tr class="table-tr" v-for="(time, index) in times" :key="index">
-                        <th class="table-th sticky">{{ time }}</th>
+                        <th class="table-th sticky">
+                            {{ time }}
+                        </th>
                         <td class="table-td" @click="chooseTime(index)">
                             <fa :icon="trueDay ? ['far', 'circle'] : 'times'" />
                         </td>
@@ -64,73 +70,24 @@
 
 <script>
 export default {
-    name: 'VerticalTable',
-    data() {
-        return {
-            today: '',
-            year: '',
-            month: '',
-            day: '',
-            arrayNum: 0,
-            arrayLength: 0,
-            trueDay: true,
-            falseDay: false,
-        };
-    },
     computed: {
-        weekdays() {
-            //配列
-            let weekday = [];
-
-            //今日の日付
-            let date = new Date();
-            this.year = date.getFullYear();
-            this.month = date.getMonth() + 1;
-            this.day = date.getDate();
-
-            //月の日数
-            //今月
-            const lastDay1 = new Date(this.year, this.month, 0).getDate();
-            //来月
-            const lastDay2 = new Date(this.year, this.month + 1, 0).getDate();
-            //再来月
-            const lastDay3 = this.day;
-
-            //日数カウント
-            let countDay1 = this.day;
-            let countDay2 = 1;
-            let countDay3 = 1;
-
-            while (countDay1 + countDay2 + countDay3 <= lastDay1 + lastDay2 + lastDay3) {
-                let weekData = [];
-
-                for (let i = 0; i <= 6; i++) {
-                    if (countDay1 <= lastDay1) {
-                        weekData[i] = `${this.month}月${countDay1}日`;
-                        countDay1++;
-                    } else {
-                        if (countDay2 <= lastDay2) {
-                            weekData[i] = `${this.month + 1}月${countDay2}日`;
-                            countDay2++;
-                        } else {
-                            if (countDay3 <= lastDay3) {
-                                weekData[i] = `${this.month + 2}月${countDay3}日`;
-                                countDay3++;
-                            } else {
-                                weekData[i] = '';
-                            }
-                        }
-                    }
-                }
-                weekday.push(weekData);
-            }
-            //配列の長さを代入
-            this.arrayLength = weekday.length - 1;
-
-            return { weekday };
-        },
         times() {
             return this.$store.state.times;
+        },
+        weekdays() {
+            return this.$store.state.weekdays;
+        },
+        arrayNum() {
+            return this.$store.state.arrayNum;
+        },
+        arrayLength() {
+            return this.$store.state.arrayLength;
+        },
+        trueDay() {
+            return this.$store.state.trueDay;
+        },
+        falseDay() {
+            return this.$store.state.falseDay;
         },
     },
     methods: {
@@ -139,11 +96,15 @@ export default {
             this.$scrollTo('#staff');
         },
         setLastWeek() {
-            this.arrayNum--;
+            this.$store.commit('setLastWeek');
         },
         setNextWeek() {
-            this.arrayNum++;
+            this.$store.commit('setNextWeek');
         },
+    },
+    mounted() {
+        this.$store.commit('weekdays');
+        console.log(this.$store.state.weekdays);
     },
 };
 </script>
