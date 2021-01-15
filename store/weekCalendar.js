@@ -39,17 +39,6 @@ export const state = () => ({
 });
 
 export const mutations = {
-    //時間の選択
-    chooseTime(state, payload) {
-        state.startTime = state.times[payload];
-        if (state.startTime === '18:00') {
-            state.endTime = '19:00';
-        } else if (state.startTime === '17:30') {
-            state.endTime = '18:30';
-        } else {
-            state.endTime = state.times[payload + 2];
-        }
-    },
     //カレンダー
     weekdays(state) {
         //今日の日付
@@ -73,17 +62,24 @@ export const mutations = {
 
             for (let i = 0; i <= 6; i++) {
                 if (countDay1 <= lastDay1) {
-                    weekData[i] = `${state.month}月${countDay1}日`;
+                    weekData[i] = {
+                        day: `${state.month}月${countDay1}日`,
+                        time: state.times,
+                    };
                     countDay1++;
                 } else {
                     if (countDay2 <= lastDay2) {
-                        weekData[i] = `${state.month + 1}月${countDay2}日`;
+                        weekData[i] = {
+                            day: `${state.month + 1}月${countDay2}日`,
+                            time: state.times,
+                        };
                         countDay2++;
                     } else {
                         weekData[i] = '';
                     }
                 }
             }
+            // weekData[7] = state.times;
             state.weekdays.push(weekData);
         }
         //配列の長さを代入
@@ -94,6 +90,17 @@ export const mutations = {
     },
     setNextWeek(state) {
         state.arrayNum++;
+    },
+    //時間の選択
+    chooseTime(state, payload) {
+        state.startTime = state.times[payload];
+        if (state.startTime === '18:00') {
+            state.endTime = '19:00';
+        } else if (state.startTime === '17:30') {
+            state.endTime = '18:30';
+        } else {
+            state.endTime = state.times[payload + 2];
+        }
     },
 };
 

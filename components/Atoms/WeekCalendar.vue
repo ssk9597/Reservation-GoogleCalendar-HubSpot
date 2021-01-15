@@ -28,10 +28,10 @@
                         <th class="table-th sticky"></th>
                         <th
                             class="table-th"
-                            v-for="(weekday, index) in weekdays[arrayNum]"
-                            :key="index"
+                            v-for="(weekday, index1) in weekdays[arrayNum]"
+                            :key="index1"
                         >
-                            {{ weekday }}
+                            {{ weekday.day }}
                         </th>
                     </tr>
                 </thead>
@@ -72,39 +72,39 @@
 export default {
     computed: {
         times() {
-            return this.$store.state.times;
+            return this.$store.state.weekCalendar.times;
         },
         weekdays() {
-            return this.$store.state.weekdays;
+            return this.$store.state.weekCalendar.weekdays;
         },
         arrayNum() {
-            return this.$store.state.arrayNum;
+            return this.$store.state.weekCalendar.arrayNum;
         },
         arrayLength() {
-            return this.$store.state.arrayLength;
+            return this.$store.state.weekCalendar.arrayLength;
         },
         trueDay() {
-            return this.$store.state.trueDay;
+            return this.$store.state.weekCalendar.trueDay;
         },
         falseDay() {
-            return this.$store.state.falseDay;
+            return this.$store.state.weekCalendar.falseDay;
         },
     },
     methods: {
         chooseTime(num) {
-            this.$store.commit('chooseTime', num);
+            this.$store.commit('weekCalendar/chooseTime', num);
             this.$scrollTo('#staff');
         },
         setLastWeek() {
-            this.$store.commit('setLastWeek');
+            this.$store.commit('weekCalendar/setLastWeek');
         },
         setNextWeek() {
-            this.$store.commit('setNextWeek');
+            this.$store.commit('weekCalendar/setNextWeek');
         },
     },
     mounted() {
-        this.$store.commit('weekdays');
-        console.log(this.$store.state.weekdays);
+        this.$store.commit('weekCalendar/weekdays');
+        console.log(this.$store.state.weekCalendar.weekdays);
     },
 };
 </script>
