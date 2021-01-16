@@ -40,13 +40,13 @@
                         <th class="table-th sticky">
                             {{ time }}
                         </th>
-                        <td class="table-td" @click="chooseTime(index)">
+                        <td class="table-td" @click="chooseTime(dayTime)">
                             <fa :icon="trueDay ? ['far', 'circle'] : 'times'" />
                         </td>
                         <td class="table-td">
                             <fa :icon="falseDay ? ['far', 'circle'] : 'times'" />
                         </td>
-                        <td class="table-td" @click="chooseTime(index)">
+                        <td class="table-td" @click="chooseTime(dayTime)">
                             <fa :icon="trueDay ? ['far', 'circle'] : 'times'" />
                         </td>
                         <td class="table-td">
@@ -115,7 +115,6 @@ export default {
     methods: {
         chooseTime(num) {
             console.log(num);
-
             this.$store.commit('weekCalendar/chooseTime', num);
             this.$scrollTo('#staff');
         },
