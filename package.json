@@ -24,6 +24,7 @@
         "googleapis": "^67.0.0",
         "jsonwebtoken": "^8.5.1",
         "nuxt": "^2.14.6",
+        "request": "^2.88.2",
         "vee-validate": "^3.4.5",
         "vue-observe-visibility": "^1.0.0",
         "vue-scrollto": "^2.20.0"

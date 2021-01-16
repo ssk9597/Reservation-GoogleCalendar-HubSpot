@@ -117,8 +117,8 @@ export default {
             this.$store.commit('footer/visibilityChanged3');
         },
         async reserve() {
-            await this.$axios
-                .$post('http://localhost:5000/api/reserve', {
+            await Promise.all([
+                this.$axios.$post('http://localhost:5000/api/reserve', {
                     calendarID: this.calendarID,
                     summary: this.summary,
                     location: this.location,
@@ -127,13 +127,35 @@ export default {
                     end: this.end,
                     attendees1: this.attendees1,
                     attendees2: this.attendees2,
-                })
+                }),
+                this.$axios.$post('http://localhost:5000/api/hubspot', {
+                    email: this.userEmail,
+                    firstName: this.firstName,
+                    lastName: this.lastName,
+                }),
+            ])
                 .then(() => {
                     this.$router.push('/thanks');
                 })
-                .catch((e) => {
-                    console.log(e);
+                .catch((err) => {
+                    console.log(err);
                 });
+            // await this.$axios.$post('http://localhost:5000/api/reserve', {
+            //     calendarID: this.calendarID,
+            //     summary: this.summary,
+            //     location: this.location,
+            //     description: this.description,
+            //     start: this.start,
+            //     end: this.end,
+            //     attendees1: this.attendees1,
+            //     attendees2: this.attendees2,
+            // });
+
+            // await this.$axios.$post('http://localhost:5000/api/hubspot', {
+            //     email: this.userEmail,
+            //     firstName: this.firstName,
+            //     lastName: this.lastName,
+            // });
         },
     },
 };

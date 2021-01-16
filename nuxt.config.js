@@ -1,5 +1,5 @@
 require('dotenv').config();
-const { API_KEY, CALENDAR_ID } = process.env;
+const { API_KEY, HUBSPOT_KEY } = process.env;
 
 export default {
     // Target (https://go.nuxtjs.dev/config-target)
@@ -49,5 +49,5 @@ export default {
         transpile: ['vee-validate/dist/rules'],
     },
 
-    env: { API_KEY, CALENDAR_ID },
+    env: { API_KEY, HUBSPOT_KEY },
 };
