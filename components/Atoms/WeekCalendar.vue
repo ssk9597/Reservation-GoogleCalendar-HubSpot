@@ -35,8 +35,8 @@
                         </th>
                     </tr>
                 </thead>
-                <tbody v-for="(weekday, index) in weekdays[arrayNum]" :key="index">
-                    <tr class="table-tr" v-for="(time, index) in weekday.time" :key="index">
+                <tbody v-for="(dayTime, index) in dayTime" :key="index">
+                    <tr class="table-tr" v-for="(time, index) in times" :key="index">
                         <th class="table-th sticky">
                             {{ time }}
                         </th>
@@ -52,13 +52,13 @@
                         <td class="table-td">
                             <fa :icon="falseDay ? ['far', 'circle'] : 'times'" />
                         </td>
-                        <td class="table-td" @click="chooseTime(index)">
+                        <td class="table-td" @click="chooseTime(dayTime)">
                             <fa :icon="trueDay ? ['far', 'circle'] : 'times'" />
                         </td>
                         <td class="table-td">
                             <fa :icon="falseDay ? ['far', 'circle'] : 'times'" />
                         </td>
-                        <td class="table-td" @click="chooseTime(index)">
+                        <td class="table-td" @click="chooseTime(dayTime)">
                             <fa :icon="trueDay ? ['far', 'circle'] : 'times'" />
                         </td>
                     </tr>
@@ -77,6 +77,28 @@ export default {
         weekdays() {
             return this.$store.state.weekCalendar.weekdays;
         },
+        dayTime() {
+            const dayTimes = this.$store.state.weekCalendar.dayTime;
+            let array = [];
+            for (let i = 0; i < dayTimes.length; i++) {
+                let day1 = dayTimes[i].slice(0, 19);
+                let day2 = dayTimes[i].slice(19, 38);
+                let day3 = dayTimes[i].slice(38, 57);
+                let day4 = dayTimes[i].slice(57, 76);
+                let day5 = dayTimes[i].slice(76, 95);
+                let day6 = dayTimes[i].slice(95, 114);
+                let day7 = dayTimes[i].slice(114, 133);
+
+                array.push(day1);
+                array.push(day2);
+                array.push(day3);
+                array.push(day4);
+                array.push(day5);
+                array.push(day6);
+                array.push(day7);
+            }
+            return { array };
+        },
         arrayNum() {
             return this.$store.state.weekCalendar.arrayNum;
         },
@@ -93,6 +115,7 @@ export default {
     methods: {
         chooseTime(num) {
             console.log(num);
+
             this.$store.commit('weekCalendar/chooseTime', num);
             this.$scrollTo('#staff');
         },
@@ -105,7 +128,7 @@ export default {
     },
     mounted() {
         this.$store.commit('weekCalendar/weekdays');
-        console.log(this.$store.state.weekCalendar.weekdays);
+        console.log(this.dayTime);
     },
 };
 </script>

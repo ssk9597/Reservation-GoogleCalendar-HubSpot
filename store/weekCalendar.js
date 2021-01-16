@@ -36,6 +36,7 @@ export const state = () => ({
     falseDay: false,
     //空の配列
     weekdays: [],
+    dayTime: [],
 });
 
 export const mutations = {
@@ -58,21 +59,37 @@ export const mutations = {
         let countDay2 = 1;
 
         while (countDay1 + countDay2 <= lastDay1 + lastDay2) {
+            //日付を渡す
             let weekData = [];
+            //日付と時間を渡す
+            let dayTimeData = [];
+            let dayTime = [];
 
             for (let i = 0; i <= 6; i++) {
                 if (countDay1 <= lastDay1) {
                     weekData[i] = {
                         day: `${state.month}月${countDay1}日`,
-                        time: state.times,
                     };
+                    for (let v = 0; v < state.times.length; v++) {
+                        dayTime[v] = {
+                            day: `${state.month}月${countDay1}日`,
+                            time: state.times[v],
+                        };
+                        dayTimeData.push(dayTime[v]);
+                    }
                     countDay1++;
                 } else {
                     if (countDay2 <= lastDay2) {
                         weekData[i] = {
                             day: `${state.month + 1}月${countDay2}日`,
-                            time: state.times,
                         };
+                        for (let v = 0; v < state.times.length; v++) {
+                            dayTime[v] = {
+                                day: `${state.month + 1}月${countDay2}日`,
+                                time: state.times[v],
+                            };
+                            dayTimeData.push(dayTime[v]);
+                        }
                         countDay2++;
                     } else {
                         weekData[i] = '';
@@ -80,6 +97,7 @@ export const mutations = {
                 }
             }
             state.weekdays.push(weekData);
+            state.dayTime.push(dayTimeData);
         }
         //配列の長さを代入
         state.arrayLength = state.weekdays.length - 1;
