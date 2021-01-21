@@ -53,7 +53,6 @@ export const mutations = {
         const lastDay1 = new Date(state.year, state.month, 0).getDate();
         //来月
         const lastDay2 = new Date(state.year, state.month + 1, 0).getDate();
-
         //日数カウント
         let countDay1 = state.day;
         let countDay2 = 1;

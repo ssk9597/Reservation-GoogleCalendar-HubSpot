@@ -1,16 +1,20 @@
+const express = require('express');
 const router = require('express').Router();
+
+const app = express();
 
 //POST-- HubSpotに登録する
 router.post('/hubspot', (req, res) => {
     try {
         const request = require('request');
 
+        const hubSpot_KEY = require('../config.json')[app.get('env')].HubSpot_KEY;
+
         const options = {
             method: 'POST',
             url: 'https://api.hubapi.com/contacts/v1/contact/',
             qs: {
-                // hapikey: process.env.HUBSPOT_KEY,
-                hapikey: '90011383-1fb0-42f7-9333-1b6144569e32',
+                hapikey: hubSpot_KEY,
             },
             headers: {
                 'Content-Type': 'application/json',
@@ -28,6 +32,7 @@ router.post('/hubspot', (req, res) => {
             if (err) {
                 throw new Error(err);
             }
+            console.log('HubSpotに登録しました');
         });
     } catch (err) {
         res.status(500).json({

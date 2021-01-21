@@ -2,12 +2,11 @@
 const express = require('express');
 const bodyParser = require('body-parser');
 const cors = require('cors');
-const dotenv = require('dotenv');
-
-//dotenv
-dotenv.config();
 
 const app = express();
+
+const config = require('./config.json')[app.get('env')];
+console.log(config.host);
 
 //middleware
 app.use(cors());

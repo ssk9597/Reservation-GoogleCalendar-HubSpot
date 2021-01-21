@@ -48,6 +48,9 @@ export default {
     build: {
         transpile: ['vee-validate/dist/rules'],
     },
-
+    buildModules: ['@nuxtjs/moment'],
+    moment: {
+        locales: ['ja'],
+    },
     env: { API_KEY, HUBSPOT_KEY },
 };

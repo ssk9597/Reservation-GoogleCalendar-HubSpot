@@ -10,7 +10,7 @@
                             <label class="require-label">必須</label>
                         </div>
                         <ValidationProvider rules="required" v-slot="{ errors }" name="これ">
-                            <input class="input" type="text" v-model="firstName" />
+                            <input class="input" type="text" v-model="lastName" />
                             <span class="danger">{{ errors[0] }}</span>
                         </ValidationProvider>
                     </div>
@@ -20,7 +20,7 @@
                             <label class="require-label">必須</label>
                         </div>
                         <ValidationProvider rules="required" v-slot="{ errors }" name="これ">
-                            <input class="input" type="text" v-model="lastName" />
+                            <input class="input" type="text" v-model="firstName" />
                             <span class="danger">{{ errors[0] }}</span>
                         </ValidationProvider>
                     </div>
@@ -91,13 +91,13 @@ export default {
             return this.$store.state.staffSelect.employeeEmail;
         },
         summary() {
-            return `【A社】${this.firstName} ${this.lastName}様のご予約を承りました`;
+            return `【A社】${this.lastName} ${this.firstName}様のご予約を承りました`;
         },
         location() {
             return this.$store.state.storeSelect.store;
         },
         description() {
-            return `ご予約者のお名前：${this.firstName} ${this.lastName}, メールアドレス：${this.userEmail}, お悩み内容：${this.userText}`;
+            return `ご予約者のお名前：${this.lastName} ${this.firstName}, メールアドレス：${this.userEmail}, お悩み内容：${this.userText}`;
         },
         start() {
             return `2021-01-24T${this.$store.state.weekCalendar.startTime}:00`;
@@ -140,22 +140,6 @@ export default {
                 .catch((err) => {
                     console.log(err);
                 });
-            // await this.$axios.$post('http://localhost:5000/api/reserve', {
-            //     calendarID: this.calendarID,
-            //     summary: this.summary,
-            //     location: this.location,
-            //     description: this.description,
-            //     start: this.start,
-            //     end: this.end,
-            //     attendees1: this.attendees1,
-            //     attendees2: this.attendees2,
-            // });
-
-            // await this.$axios.$post('http://localhost:5000/api/hubspot', {
-            //     email: this.userEmail,
-            //     firstName: this.firstName,
-            //     lastName: this.lastName,
-            // });
         },
     },
 };

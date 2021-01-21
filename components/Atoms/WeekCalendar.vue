@@ -35,30 +35,30 @@
                         </th>
                     </tr>
                 </thead>
-                <tbody v-for="(dayTime, index) in dayTime" :key="index">
-                    <tr class="table-tr" v-for="(time, index) in times" :key="index">
+                <tbody v-for="(dayTime, index) in dayTime.array" :key="index">
+                    <tr class="table-tr" v-for="(date, index) in dayTime" :key="index">
                         <th class="table-th sticky">
-                            {{ time }}
+                            {{ date.time }}
                         </th>
-                        <td class="table-td" @click="chooseTime(dayTime)">
+                        <td class="table-td" @click="chooseTime(date)">
                             <fa :icon="trueDay ? ['far', 'circle'] : 'times'" />
                         </td>
                         <td class="table-td">
                             <fa :icon="falseDay ? ['far', 'circle'] : 'times'" />
                         </td>
-                        <td class="table-td" @click="chooseTime(dayTime)">
+                        <td class="table-td" @click="chooseTime(date)">
                             <fa :icon="trueDay ? ['far', 'circle'] : 'times'" />
                         </td>
                         <td class="table-td">
                             <fa :icon="falseDay ? ['far', 'circle'] : 'times'" />
                         </td>
-                        <td class="table-td" @click="chooseTime(dayTime)">
+                        <td class="table-td" @click="chooseTime(date)">
                             <fa :icon="trueDay ? ['far', 'circle'] : 'times'" />
                         </td>
                         <td class="table-td">
                             <fa :icon="falseDay ? ['far', 'circle'] : 'times'" />
                         </td>
-                        <td class="table-td" @click="chooseTime(dayTime)">
+                        <td class="table-td" @click="chooseTime(date)">
                             <fa :icon="trueDay ? ['far', 'circle'] : 'times'" />
                         </td>
                     </tr>
@@ -71,9 +71,6 @@
 <script>
 export default {
     computed: {
-        times() {
-            return this.$store.state.weekCalendar.times;
-        },
         weekdays() {
             return this.$store.state.weekCalendar.weekdays;
         },
@@ -127,7 +124,6 @@ export default {
     },
     mounted() {
         this.$store.commit('weekCalendar/weekdays');
-        console.log(this.dayTime);
     },
 };
 </script>
