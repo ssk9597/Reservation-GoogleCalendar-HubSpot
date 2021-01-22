@@ -1,15 +1,27 @@
 <template>
     <div v-observe-visibility="visibilityChanged1" id="date">
         <h2 class="heading">ご希望の日時をお選びください</h2>
-        <WeekCalendar />
+        <div v-if="dayPicker === ''">
+            <Calendar />
+        </div>
+        <div v-else>
+            <Time />
+        </div>
     </div>
 </template>
 
 <script>
-import WeekCalendar from '@/components/Atoms/WeekCalendar';
+import Calendar from '@/components/Atoms/Calendar';
+import Time from '@/components/Atoms/Time';
 export default {
     components: {
-        WeekCalendar,
+        Calendar,
+        Time,
+    },
+    computed: {
+        dayPicker() {
+            return this.$store.state.calendar.dayPicker;
+        },
     },
     methods: {
         visibilityChanged1() {
@@ -22,6 +34,6 @@ export default {
 <style lang="scss" scoped>
 #date {
     padding-top: 40px;
-    padding-bottom: 100px;
+    padding-bottom: 60px;
 }
 </style>

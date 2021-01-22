@@ -35,30 +35,15 @@
                         </th>
                     </tr>
                 </thead>
-                <tbody v-for="(dayTime, index) in dayTime.array" :key="index">
-                    <tr class="table-tr" v-for="(date, index) in dayTime" :key="index">
-                        <th class="table-th sticky">
-                            {{ date.time }}
-                        </th>
-                        <td class="table-td" @click="chooseTime(date)">
-                            <fa :icon="trueDay ? ['far', 'circle'] : 'times'" />
-                        </td>
-                        <td class="table-td">
-                            <fa :icon="falseDay ? ['far', 'circle'] : 'times'" />
-                        </td>
-                        <td class="table-td" @click="chooseTime(date)">
-                            <fa :icon="trueDay ? ['far', 'circle'] : 'times'" />
-                        </td>
-                        <td class="table-td">
-                            <fa :icon="falseDay ? ['far', 'circle'] : 'times'" />
-                        </td>
-                        <td class="table-td" @click="chooseTime(date)">
-                            <fa :icon="trueDay ? ['far', 'circle'] : 'times'" />
-                        </td>
-                        <td class="table-td">
-                            <fa :icon="falseDay ? ['far', 'circle'] : 'times'" />
-                        </td>
-                        <td class="table-td" @click="chooseTime(date)">
+                <tbody>
+                    <tr class="table-tr" v-for="(dayTime, index) in dayTime.array" :key="index">
+                        <th class="table-th sticky"></th>
+                        <td
+                            v-for="(date, index) in dayTime"
+                            :key="index"
+                            class="table-td"
+                            @click="chooseTime(date)"
+                        >
                             <fa :icon="trueDay ? ['far', 'circle'] : 'times'" />
                         </td>
                     </tr>

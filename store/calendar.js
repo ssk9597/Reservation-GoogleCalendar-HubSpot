@@ -83,6 +83,9 @@ export const mutations = {
         state.dayPicker = `${day.yearMonth}-${date}`;
         console.log(`${day.yearMonth}-${date}`);
     },
+    prevSelect(state) {
+        state.dayPicker = '';
+    },
 };
 
 export const actions = {

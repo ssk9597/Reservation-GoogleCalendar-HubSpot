@@ -100,17 +100,18 @@ export default {
             return `ご予約者のお名前：${this.lastName} ${this.firstName}, メールアドレス：${this.userEmail}, お悩み内容：${this.userText}`;
         },
         start() {
-            return `2021-01-24T${this.$store.state.weekCalendar.startTime}:00`;
+            return `${this.$store.state.calendar.dayPicker}T${this.$store.state.time.startTime}:00`;
         },
         end() {
-            return `2021-01-24T${this.$store.state.weekCalendar.endTime}:00`;
+            return `${this.$store.state.calendar.dayPicker}T${this.$store.state.time.endTime}:00`;
         },
-        attendees1() {
-            return this.$store.state.input.userEmail;
-        },
-        attendees2() {
-            return this.$store.state.staffSelect.employeeEmail;
-        },
+        //GSuiteじゃないとエラーが出るっぽい
+        // attendees1() {
+        //     return this.$store.state.input.userEmail;
+        // },
+        // attendees2() {
+        //     return this.$store.state.staffSelect.employeeEmail;
+        // },
     },
     methods: {
         visibilityChanged3() {
@@ -125,8 +126,9 @@ export default {
                     description: this.description,
                     start: this.start,
                     end: this.end,
-                    attendees1: this.attendees1,
-                    attendees2: this.attendees2,
+                    //GSuiteじゃないとエラーが出るっぽい
+                    // attendees1: this.attendees1,
+                    // attendees2: this.attendees2,
                 }),
                 this.$axios.$post('http://localhost:5000/api/hubspot', {
                     email: this.userEmail,
