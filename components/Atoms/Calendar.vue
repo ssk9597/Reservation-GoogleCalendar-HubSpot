@@ -15,7 +15,7 @@
             <div class="calendar-header-left empty" v-else></div>
             <p class="calendar-header-middle">{{ displayDate }}</p>
             <div
-                v-if="Number(currentDate.month) + 2 > Number(compareDate.month)"
+                v-if="Number(currentDate.month) + 1 > Number(compareDate.month)"
                 class="calendar-header-right"
                 @click="nextMonth"
             >
