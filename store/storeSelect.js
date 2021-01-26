@@ -66,7 +66,6 @@ export const mutations = {
                             });
                         });
 
-                        console.log('選択された店舗の従業員数は' + storeEmployee.length + '名です');
                         console.log(schedules);
 
                         //日付を算出
@@ -86,9 +85,16 @@ export const mutations = {
                         //配列を作成
                         let dateEmptyArray = [];
                         let dayTime = [];
+                        let employeeCalendars = [];
+                        storeEmployee.forEach(employee => {
+                            employeeCalendars.push(employee.calendar_Id);
+                        });
+                        // console.log(employeeCalendars);
+
                         dateArray.forEach(date => {
                             for (let i = 0; i < state.times.length; i++) {
                                 dayTime[i] = {
+                                    id: employeeCalendars,
                                     time: state.times[i],
                                     day: date,
                                     isEmpty: true,
@@ -102,11 +108,13 @@ export const mutations = {
                         dateEmptyArray.forEach(date => {
                             schedules.forEach(schedule => {
                                 if (schedule.day === date.day && schedule.startTime === date.time) {
+                                    const num = date.id.lastIndexOf(schedule.id);
+                                    date.id.splice(num, 1);
                                     date.emptyNum--;
-                                    if (date.emptyNum === 0) {
-                                        date.isEmpty = false;
-                                        console.log(date);
-                                    }
+                                }
+                                if (date.emptyNum === 0) {
+                                    date.isEmpty = false;
+                                    // console.log(date);
                                 }
                             });
                         });
