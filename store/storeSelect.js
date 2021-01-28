@@ -53,17 +53,79 @@ export const mutations = {
                             const start = data.start.dateTime;
                             const startDate = `${start.substr(0, 10)}`;
                             const startTime = `${start.substr(11, 5)}`;
+                            const startHour = `${start.substr(11, 2)}`;
+                            const startMinute = `${start.substr(14, 2)}`;
                             //終了時間
                             const end = data.end.dateTime;
                             const endDate = `${end.substr(0, 10)}`;
                             const endTime = `${end.substr(11, 5)}`;
+                            const endHour = `${end.substr(11, 2)}`;
+                            const endMinute = `${end.substr(14, 2)}`;
 
-                            schedules.push({
-                                id: employee.calendar_Id,
-                                startTime: startTime,
-                                day: startDate,
-                                isEmpty: false,
-                            });
+                            const differenceHour = endHour - startHour;
+                            const minutes = ['00', '30'];
+
+                            if (endMinute - startMinute < 0) {
+                                schedules.push({
+                                    id: employee.calendar_Id,
+                                    startTime: startTime,
+                                    day: startDate,
+                                    isEmpty: false,
+                                });
+                                for (let i = 1; i < differenceHour; i++) {
+                                    for (let v = 0; v < minutes.length; v++) {
+                                        const time = `${Number(startHour) + Number(i)}:${
+                                            minutes[v]
+                                        }`;
+                                        schedules.push({
+                                            id: employee.calendar_Id,
+                                            startTime: time,
+                                            day: startDate,
+                                            isEmpty: false,
+                                        });
+                                    }
+                                }
+                            } else if (endMinute - startMinute === 0) {
+                                for (let i = 0; i < differenceHour; i++) {
+                                    for (let v = 0; v < minutes.length; v++) {
+                                        const time = `${Number(startHour) + Number(i)}:${
+                                            minutes[v]
+                                        }`;
+                                        schedules.push({
+                                            id: employee.calendar_Id,
+                                            startTime: time,
+                                            day: startDate,
+                                            isEmpty: false,
+                                        });
+                                    }
+                                }
+                            } else {
+                                for (let i = 0; i <= differenceHour; i++) {
+                                    if (i !== differenceHour) {
+                                        for (let v = 0; v < minutes.length; v++) {
+                                            const time = `${Number(startHour) + Number(i)}:${
+                                                minutes[v]
+                                            }`;
+                                            schedules.push({
+                                                id: employee.calendar_Id,
+                                                startTime: time,
+                                                day: startDate,
+                                                isEmpty: false,
+                                            });
+                                        }
+                                    } else {
+                                        const time = `${Number(startHour) + Number(i)}:${
+                                            minutes[0]
+                                        }`;
+                                        schedules.push({
+                                            id: employee.calendar_Id,
+                                            startTime: time,
+                                            day: startDate,
+                                            isEmpty: false,
+                                        });
+                                    }
+                                }
+                            }
                         });
 
                         console.log(schedules);
@@ -86,11 +148,12 @@ export const mutations = {
                         let dateEmptyArray = [];
                         let dayTime = [];
                         let employeeCalendars = [];
+                        //従業員のカレンダーID
                         storeEmployee.forEach(employee => {
                             employeeCalendars.push(employee.calendar_Id);
                         });
-                        // console.log(employeeCalendars);
 
+                        //isEmptyがtrueの配列を作成
                         dateArray.forEach(date => {
                             for (let i = 0; i < state.times.length; i++) {
                                 dayTime[i] = {
@@ -108,13 +171,18 @@ export const mutations = {
                         dateEmptyArray.forEach(date => {
                             schedules.forEach(schedule => {
                                 if (schedule.day === date.day && schedule.startTime === date.time) {
-                                    const num = date.id.lastIndexOf(schedule.id);
-                                    date.id.splice(num, 1);
+                                    // console.log(schedule.day);
+                                    // console.log(date.day);
+                                    // console.log(schedule.startTime);
+                                    // console.log(date.time);
+
+                                    // const num = date.id.lastIndexOf(schedule.id);
+                                    // date.id.splice(num, 1);
                                     date.emptyNum--;
                                 }
                                 if (date.emptyNum === 0) {
                                     date.isEmpty = false;
-                                    // console.log(date);
+                                    console.log(date);
                                 }
                             });
                         });
