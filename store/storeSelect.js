@@ -1,5 +1,5 @@
 import moment from 'moment';
-
+export const strict = false;
 export const state = () => ({
     //店名
     store: '',
@@ -27,6 +27,10 @@ export const state = () => ({
         '17:30',
         '18:00',
     ],
+    dateEmptyArray: [],
+    //選択された店舗の従業員数
+    storeEmployee: [],
+    dateEmptyArray: '',
 });
 
 export const mutations = {
@@ -36,15 +40,13 @@ export const mutations = {
     },
     setEmployee(state, payload) {
         state.employees = payload;
-        //選択された店舗の従業員数
-        let storeEmployee = [];
-        // //従業員の予定
+        //従業員の予定
         let schedules = [];
 
         state.employees.contents.forEach(employee => {
             if (state.store === employee.storeName.location) {
                 //選択された店舗の従業員数
-                storeEmployee.push(employee);
+                state.storeEmployee.push(employee);
 
                 //スケジュールを作成
                 this.$axios
@@ -54,7 +56,7 @@ export const mutations = {
                             //開始時間
                             const start = data.start.dateTime;
                             const startDate = `${start.substr(0, 10)}`;
-                            // const startTime = `${start.substr(11, 5)}`;
+                            // const time = `${start.substr(11, 5)}`;
                             const startHour = `${start.substr(11, 2)}`;
                             const startMinute = `${start.substr(14, 2)}`;
                             //終了時間
@@ -77,7 +79,7 @@ export const mutations = {
                                                 }`;
                                                 schedules.push({
                                                     id: employee.calendar_Id,
-                                                    startTime: time,
+                                                    time: time,
                                                     day: startDate,
                                                     isEmpty: false,
                                                 });
@@ -88,7 +90,7 @@ export const mutations = {
                                             }`;
                                             schedules.push({
                                                 id: employee.calendar_Id,
-                                                startTime: time,
+                                                time: time,
                                                 day: startDate,
                                                 isEmpty: false,
                                             });
@@ -102,7 +104,7 @@ export const mutations = {
                                             }`;
                                             schedules.push({
                                                 id: employee.calendar_Id,
-                                                startTime: time,
+                                                time: time,
                                                 day: startDate,
                                                 isEmpty: false,
                                             });
@@ -118,7 +120,7 @@ export const mutations = {
                                             }`;
                                             schedules.push({
                                                 id: employee.calendar_Id,
-                                                startTime: time,
+                                                time: time,
                                                 day: startDate,
                                                 isEmpty: false,
                                             });
@@ -129,7 +131,7 @@ export const mutations = {
                                         }`;
                                         schedules.push({
                                             id: employee.calendar_Id,
-                                            startTime: time,
+                                            time: time,
                                             day: startDate,
                                             isEmpty: false,
                                         });
@@ -158,7 +160,7 @@ export const mutations = {
                         // let employeeCalendars = [];
 
                         //従業員のカレンダーID
-                        // storeEmployee.forEach(employee => {
+                        // state.storeEmployee.forEach(employee => {
                         //     employeeCalendars.push(employee.calendar_Id);
                         // });
 
@@ -171,7 +173,7 @@ export const mutations = {
                                     time: state.times[i],
                                     day: date,
                                     isEmpty: true,
-                                    emptyNum: storeEmployee.length,
+                                    emptyNum: state.storeEmployee.length,
                                 };
                                 dateEmptyArray.push(dayTime[i]);
                             }
@@ -179,7 +181,7 @@ export const mutations = {
 
                         dateEmptyArray.forEach(date => {
                             schedules.forEach(schedule => {
-                                if (schedule.day === date.day && schedule.startTime === date.time) {
+                                if (schedule.day === date.day && schedule.time === date.time) {
                                     // ①予定が入っているカレンダーIDを取り出す
                                     date.id.push(schedule.id);
                                     // ②指定して削除する
@@ -197,6 +199,9 @@ export const mutations = {
                             });
                         });
                         console.log(dateEmptyArray);
+
+                        state.dateEmptyArray = dateEmptyArray;
+                        console.log(state.dateEmptyArray);
                     })
                     .catch(err => {
                         console.log(err);
