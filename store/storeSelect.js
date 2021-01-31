@@ -28,9 +28,15 @@ export const state = () => ({
         '18:00',
     ],
     //従業員のスケジュール
-    employeeSchedules: '',
+    employeeSchedules: [],
+    //成形された従業員のスケジュール
+    shapeEmployeeSchedules: [],
     //選択された店舗の従業員数
     storeEmployee: [],
+    //カレンダーの日付を作る
+    dateArray: [],
+    //カレンダーの完成形
+    dateEmptyArray: [],
 });
 
 export const mutations = {
@@ -38,14 +44,146 @@ export const mutations = {
     selectStore(state, payload) {
         state.store = payload;
     },
+    //MicroCMSの従業員を取り出す
     setEmployee(state, payload) {
         state.employees = payload;
-        console.log(state.employees);
-        console.log(state.store);
     },
+    //Googleカレンダーを取り出す
     setEmployeeSchedules(state, payload) {
         state.employeeSchedules = payload;
-        console.log(state.employeeSchedules);
+    },
+    //Googleカレンダーを成形する
+    shapeEmployeeSchedules(state) {
+        state.employees.contents.forEach(employee => {
+            if (state.store === employee.storeName.location) {
+                state.storeEmployee.push(employee);
+
+                state.employeeSchedules.forEach(schedule => {
+                    // 開始時間
+                    const start = schedule.start.dateTime;
+                    const startDate = `${start.substr(0, 10)}`;
+                    const startHour = `${start.substr(11, 2)}`;
+                    const startMinute = `${start.substr(14, 2)}`;
+                    //終了時間
+                    const end = schedule.end.dateTime;
+                    const endHour = `${end.substr(11, 2)}`;
+                    const endMinute = `${end.substr(14, 2)}`;
+
+                    const differenceHour = endHour - startHour;
+                    const minutes = ['00', '30'];
+
+                    if (endMinute - startMinute <= 0) {
+                        if (endMinute === '30' && startMinute === '30') {
+                            for (let i = 0; i <= differenceHour; i++) {
+                                if (i !== differenceHour) {
+                                    for (let v = 0; v < minutes.length; v++) {
+                                        const time = `${Number(startHour) + Number(i)}:${
+                                            minutes[v]
+                                        }`;
+                                        state.shapeEmployeeSchedules.push({
+                                            id: employee.calendar_Id,
+                                            time: time,
+                                            day: startDate,
+                                            isEmpty: false,
+                                        });
+                                    }
+                                } else {
+                                    const time = `${Number(startHour) + Number(i)}:${minutes[0]}`;
+                                    state.shapeEmployeeSchedules.push({
+                                        id: employee.calendar_Id,
+                                        time: time,
+                                        day: startDate,
+                                        isEmpty: false,
+                                    });
+                                }
+                            }
+                        } else {
+                            for (let i = 0; i < differenceHour; i++) {
+                                for (let v = 0; v < minutes.length; v++) {
+                                    const time = `${Number(startHour) + Number(i)}:${minutes[v]}`;
+                                    state.shapeEmployeeSchedules.push({
+                                        id: employee.calendar_Id,
+                                        time: time,
+                                        day: startDate,
+                                        isEmpty: false,
+                                    });
+                                }
+                            }
+                        }
+                    } else {
+                        for (let i = 0; i <= differenceHour; i++) {
+                            if (i !== differenceHour) {
+                                for (let v = 0; v < minutes.length; v++) {
+                                    const time = `${Number(startHour) + Number(i)}:${minutes[v]}`;
+                                    state.shapeEmployeeSchedules.push({
+                                        id: employee.calendar_Id,
+                                        time: time,
+                                        day: startDate,
+                                        isEmpty: false,
+                                    });
+                                }
+                            } else {
+                                const time = `${Number(startHour) + Number(i)}:${minutes[0]}`;
+                                state.shapeEmployeeSchedules.push({
+                                    id: employee.calendar_Id,
+                                    time: time,
+                                    day: startDate,
+                                    isEmpty: false,
+                                });
+                            }
+                        }
+                    }
+                });
+            }
+        });
+    },
+    setCalendarDate(state) {
+        const thisMonth = moment();
+        const nextMonth = moment()
+            .add(1, 'months')
+            .endOf('month');
+        const compareMonth = nextMonth.diff(thisMonth, 'days');
+        for (let i = 0; i <= compareMonth; i++) {
+            const num = moment()
+                .add(i, 'days')
+                .format('YYYY-MM-DD');
+            state.dateArray.push(num);
+        }
+    },
+    defaultDateEmptyArray(state) {
+        let dayTime = [];
+        state.dateArray.forEach(date => {
+            for (let i = 0; i < state.times.length; i++) {
+                dayTime[i] = {
+                    id: [],
+                    time: state.times[i],
+                    day: date,
+                    isEmpty: true,
+                    emptyNum: state.storeEmployee.length,
+                };
+                state.dateEmptyArray.push(dayTime[i]);
+            }
+        });
+        // console.log(state.dateEmptyArray);
+    },
+    completeDateEmptyArray(state) {
+        // console.log(state.shapeEmployeeSchedules);
+        state.dateEmptyArray.forEach(date => {
+            state.shapeEmployeeSchedules.forEach(schedule => {
+                if (schedule.day === date.day && schedule.time === date.time) {
+                    console.log(schedule.day);
+                    console.log(schedule.time);
+                    console.log(schedule.id);
+                    date.id.push(schedule.id);
+                    if (date.emptyNum <= 0) {
+                        date.isEmpty = false;
+                    } else {
+                        date.emptyNum--;
+                    }
+                }
+            });
+        });
+        console.log(state.dateEmptyArray);
     },
     // setEmployee(state, payload) {
     //     state.employees = payload;
@@ -230,17 +368,25 @@ export const actions = {
         commit('setEmployee', employees);
 
         let employeeSchedules = [];
-        await employees.contents.forEach(employee => {
-            if (state.store === employee.storeName.location) {
-                this.$axios
-                    .$get(`http://localhost:5000/api/receive/${employee.calendar_Id}`)
-                    .then(results => {
-                        results.message.forEach(result => {
-                            employeeSchedules.push(result);
-                        });
-                    });
-            }
-        });
-        commit('setEmployeeSchedules', employeeSchedules);
+        (async () => {
+            await Promise.all(
+                employees.contents.map(async employee => {
+                    if (state.store === employee.storeName.location) {
+                        await this.$axios
+                            .$get(`http://localhost:5000/api/receive/${employee.calendar_Id}`)
+                            .then(results => {
+                                results.message.forEach(result => {
+                                    employeeSchedules.push(result);
+                                });
+                            });
+                    }
+                })
+            );
+            commit('setEmployeeSchedules', employeeSchedules);
+            commit('shapeEmployeeSchedules');
+            commit('setCalendarDate');
+            commit('defaultDateEmptyArray');
+            commit('completeDateEmptyArray');
+        })();
     },
 };
