@@ -86,6 +86,8 @@ export const mutations = {
     },
     prevSelect(state) {
         state.dayPicker = '';
+        state.day = moment();
+        state.displayDate = state.day.format('YYYY[年]M[月]');
     },
 };
 
