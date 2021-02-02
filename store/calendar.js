@@ -56,6 +56,7 @@ export const mutations = {
                 week.push({
                     date: startDate.get('date'),
                     yearMonth: startDate.format('YYYY-MM'),
+                    yearMonthDay: startDate.format('YYYY-MM-DD'),
                 });
                 startDate.add(1, 'days');
             }

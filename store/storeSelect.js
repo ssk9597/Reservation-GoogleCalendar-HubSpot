@@ -170,7 +170,9 @@ export const mutations = {
         const nonReserveTime = moment()
             .add(2, 'hours')
             .format('HH:mm');
-        // console.log(state.shapeEmployeeSchedules);
+
+        console.log(state.shapeEmployeeSchedules);
+
         state.dateEmptyArray.forEach(date => {
             state.shapeEmployeeSchedules.forEach(schedule => {
                 if (
@@ -178,9 +180,9 @@ export const mutations = {
                     schedule.time === date.time &&
                     date.id.indexOf(schedule.id) == -1
                 ) {
-                    // console.log(schedule.day);
-                    // console.log(schedule.time);
-                    // console.log(schedule.id);
+                    console.log(schedule.day);
+                    console.log(schedule.time);
+                    console.log(schedule.id);
 
                     date.id.push(schedule.id);
                     date.emptyNum--;
@@ -189,7 +191,6 @@ export const mutations = {
                         date.isEmpty = false;
                     }
                 }
-                //2時間後まで予約できない
                 if (date.day === currentDate && date.time <= nonReserveTime) {
                     date.isEmpty = false;
                 }

@@ -50,8 +50,9 @@
                                 },
                                 {
                                     notClick:
-                                        currentDate.yearMonth == day.yearMonth &&
-                                        currentDate.day > day.date,
+                                        (currentDate.yearMonth == day.yearMonth &&
+                                            currentDate.day > day.date) ||
+                                        !emptyDate(day),
                                 },
                             ]"
                             @click="pickDay(day)"
@@ -83,6 +84,10 @@ export default {
         compareDate() {
             return this.$store.state.calendar.compareDate;
         },
+        //storeSelect
+        dateEmptyArray() {
+            return this.$store.state.storeSelect.dateEmptyArray;
+        },
     },
     methods: {
         prevMonth() {
@@ -95,6 +100,14 @@ export default {
         },
         pickDay(day) {
             this.$store.commit('calendar/pickDay', day);
+        },
+        emptyDate(day) {
+            const date = this.dateEmptyArray.filter((date) => {
+                return date.day === day.yearMonthDay;
+            });
+            return date.some((day) => {
+                return day.isEmpty === true;
+            });
         },
     },
     mounted() {
@@ -207,8 +220,7 @@ export default {
     color: rgba(0, 1, 17, 0.2);
 }
 .today {
-    background-color: #89535a;
-    color: white;
+    color: #89535a;
 }
 .notClick {
     color: rgba(0, 1, 17, 0.05);
