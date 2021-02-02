@@ -1,11 +1,13 @@
 <template>
     <div v-observe-visibility="visibilityChanged1" id="date">
         <h2 class="heading">ご希望の日時をお選びください</h2>
-        <div v-if="dayPicker === ''">
-            <Calendar />
-        </div>
-        <div v-else>
-            <Time />
+        <div v-if="dateEmptyArray != ''">
+            <div v-if="dayPicker === ''">
+                <Calendar />
+            </div>
+            <div v-else>
+                <Time />
+            </div>
         </div>
     </div>
 </template>
@@ -21,6 +23,9 @@ export default {
     computed: {
         dayPicker() {
             return this.$store.state.calendar.dayPicker;
+        },
+        dateEmptyArray() {
+            return this.$store.state.storeSelect.dateEmptyArray;
         },
     },
     methods: {

@@ -17,7 +17,11 @@
                 <thead class="table-thead">
                     <tr class="table-tr">
                         <th class="table-th sticky"></th>
-                        <th class="table-th" v-for="(time, index) in times" :key="index">
+                        <th
+                            class="table-th"
+                            v-for="(time, index) in chooseDateEmptyArray"
+                            :key="index"
+                        >
                             {{ time.time }}
                         </th>
                     </tr>
@@ -25,7 +29,11 @@
                 <tbody>
                     <tr class="table-tr">
                         <th class="table-th sticky">空き状況</th>
-                        <td class="table-td" v-for="(time, index) in times" :key="index">
+                        <td
+                            class="table-td"
+                            v-for="(time, index) in chooseDateEmptyArray"
+                            :key="index"
+                        >
                             <fa
                                 :icon="time.isEmpty ? ['far', 'circle'] : 'times'"
                                 @click="pickTime(time)"
@@ -44,8 +52,16 @@ export default {
         dayPicker() {
             return this.$store.state.calendar.dayPicker;
         },
-        times() {
-            return this.$store.state.time.times;
+        //storeSelect
+        dateEmptyArray() {
+            return this.$store.state.storeSelect.dateEmptyArray;
+        },
+        chooseDateEmptyArray() {
+            const times = this.dateEmptyArray.filter((date) => {
+                return date.day === this.dayPicker;
+            });
+            console.log(times);
+            return times;
         },
     },
     methods: {

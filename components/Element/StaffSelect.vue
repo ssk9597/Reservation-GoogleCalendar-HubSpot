@@ -1,17 +1,20 @@
 <template>
     <div class="staff-container" v-observe-visibility="visibilityChanged2" id="staff">
         <h2 class="heading">スタッフをお選びください</h2>
-        <div v-for="content in employees.contents" :key="content.id">
-            <div v-if="store === content.storeName.location">
-                <div class="staff-wrapper">
-                    <img :src="content.image.url" :alt="content.name" />
-                    <h3>{{ content.name }}</h3>
-                    <p>{{ content.body }}</p>
-                </div>
-                <div class="btn-center">
-                    <div class="btn" @click="selectStaff(content.calendar_Id)">相談する</div>
+        <div v-if="time !== ''">
+            <div v-for="content in employees.contents" :key="content.id">
+                <div v-if="store === content.storeName.location">
+                    <div class="staff-wrapper">
+                        <img :src="content.image.url" :alt="content.name" />
+                        <h3>{{ content.name }}</h3>
+                        <p>{{ content.body }}</p>
+                    </div>
+                    <div class="btn-center">
+                        <div class="btn" @click="selectStaff(content.calendar_Id)">相談する</div>
+                    </div>
                 </div>
             </div>
+            {{ emptyStaff }}
         </div>
     </div>
 </template>
@@ -22,6 +25,17 @@ export default {
     computed: {
         store() {
             return this.$store.state.storeSelect.store;
+        },
+        //calendar, time
+        time() {
+            return this.$store.state.time.time;
+        },
+        emptyStaff() {
+            if (this.time.id.length > 1) {
+                return time.id;
+            } else {
+                return;
+            }
         },
     },
     methods: {

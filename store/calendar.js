@@ -89,9 +89,9 @@ export const mutations = {
 };
 
 export const actions = {
-    displayCalendar(context) {
-        context.commit('getStartDate');
-        context.commit('getEndDate');
-        context.commit('getCalendar');
+    displayCalendar({ commit }) {
+        commit('getStartDate');
+        commit('getEndDate');
+        commit('getCalendar');
     },
 };
