@@ -8,7 +8,7 @@
                 </span>
                 <p class="calendar-header-left-text">戻る</p>
             </div>
-            <p class="calendar-header-middle">{{ dayPicker }}</p>
+            <p class="calendar-header-middle">{{ date }}</p>
             <div class="calendar-header-right"></div>
         </div>
         <!-- カレンダー -->
@@ -51,6 +51,12 @@ export default {
     computed: {
         dayPicker() {
             return this.$store.state.calendar.dayPicker;
+        },
+        date() {
+            return `${this.dayPicker.substr(0, 4)}年${this.dayPicker.substr(
+                5,
+                2
+            )}月${this.dayPicker.substr(8, 2)}日`;
         },
         //storeSelect
         dateEmptyArray() {

@@ -101,6 +101,7 @@ export default {
         pickDay(day) {
             this.$store.commit('calendar/pickDay', day);
         },
+        //空いていない日を探す
         emptyDate(day) {
             const date = this.dateEmptyArray.filter((date) => {
                 return date.day === day.yearMonthDay;
