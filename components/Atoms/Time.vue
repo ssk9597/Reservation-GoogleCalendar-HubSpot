@@ -66,7 +66,6 @@ export default {
             const times = this.dateEmptyArray.filter((date) => {
                 return date.day === this.dayPicker;
             });
-            console.log(times);
             return times;
         },
     },
@@ -78,9 +77,6 @@ export default {
             this.$store.commit('calendar/getCalendar');
             this.$store.commit('calendar/currentDate');
             this.$store.commit('calendar/compareDate');
-            console.log(this.$store.state.calendar.currentDate);
-            console.log(this.$store.state.calendar.compareDate);
-            console.log(this.$store.state.calendar.displayDate);
         },
         pickTime(time) {
             this.$store.commit('time/pickTime', time);

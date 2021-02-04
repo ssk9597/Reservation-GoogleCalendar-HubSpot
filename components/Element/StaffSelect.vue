@@ -2,19 +2,45 @@
     <div class="staff-container" v-observe-visibility="visibilityChanged2" id="staff">
         <h2 class="heading">スタッフをお選びください</h2>
         <div v-if="time !== ''">
-            <div v-for="content in employees.contents" :key="content.id">
-                <div v-if="store === content.storeName.location">
-                    <div class="staff-wrapper">
-                        <img :src="content.image.url" :alt="content.name" />
-                        <h3>{{ content.name }}</h3>
-                        <p>{{ content.body }}</p>
-                    </div>
-                    <div class="btn-center">
-                        <div class="btn" @click="selectStaff(content.calendar_Id)">相談する</div>
+            <div v-if="emptyStaff === ''">
+                <div v-for="content in employees.contents" :key="content.id">
+                    <div v-if="store === content.storeName.location">
+                        <div class="staff-wrapper">
+                            <img :src="content.image.url" :alt="content.name" />
+                            <h3>{{ content.name }}</h3>
+                            <p>{{ content.body }}</p>
+                        </div>
+                        <div class="btn-center">
+                            <div class="btn" @click="selectStaff(content.calendar_Id)">
+                                相談する
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
-            {{ emptyStaff }}
+            <div v-else>
+                <div v-for="(staff, index) in emptyStaff" :key="index">
+                    <div v-for="content in employees.contents" :key="content.id">
+                        <div
+                            v-if="
+                                store === content.storeName.location &&
+                                staff !== content.calendar_Id
+                            "
+                        >
+                            <div class="staff-wrapper">
+                                <img :src="content.image.url" :alt="content.name" />
+                                <h3>{{ content.name }}</h3>
+                                <p>{{ content.body }}</p>
+                            </div>
+                            <div class="btn-center">
+                                <div class="btn" @click="selectStaff(content.calendar_Id)">
+                                    相談する
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
 </template>
@@ -31,10 +57,10 @@ export default {
             return this.$store.state.time.time;
         },
         emptyStaff() {
-            if (this.time.id.length > 1) {
-                return time.id;
+            if (this.time.id.length > 0) {
+                return this.time.id;
             } else {
-                return;
+                return '';
             }
         },
     },

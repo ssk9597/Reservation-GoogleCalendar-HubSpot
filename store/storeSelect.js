@@ -73,35 +73,10 @@ export const mutations = {
                     const minutes = ['00', '30'];
 
                     //条件分岐
-                    //①開始時間と終了時間の分が一緒のケース
-                    if (startMinute === endMinute) {
-                        //時間が30分未満
-                        if (startMinute < 30) {
-                            // console.log(schedule);
-                            //開始時間の30分前の値を取得し代入
-                            const time = `${Number(startHour) - 1}:${minutes[1]}`;
-                            state.shapeEmployeeSchedules.push({
-                                id: schedule.organizer.email,
-                                time: time,
-                                day: startDate,
-                                isEmpty: false,
-                            });
-                            //開始時間〜終了時間の30分前までの値を取得し代入
-                            for (let i = 0; i < differenceHour; i++) {
-                                for (let v of minutes) {
-                                    const time = `${Number(startHour) + Number(i)}:${v}`;
-                                    // console.log(time);
-                                    state.shapeEmployeeSchedules.push({
-                                        id: schedule.organizer.email,
-                                        time: time,
-                                        day: startDate,
-                                        isEmpty: false,
-                                    });
-                                }
-                            }
-                        } else {
-                            //時間が30分以上
-                            //開始時間〜終了時間の30分前までの値を取得し代入
+                    //①開始時間が30分超
+                    if (startMinute > 30) {
+                        // ①-①終了時間が30分超
+                        if (endMinute > 30) {
                             for (let i = 0; i <= differenceHour; i++) {
                                 for (let v of minutes) {
                                     const time = `${Number(startHour) + Number(i)}:${v}`;
@@ -109,13 +84,71 @@ export const mutations = {
                                         id: schedule.organizer.email,
                                         time: time,
                                         day: startDate,
-                                        isEmpty: false,
+                                    });
+                                }
+                            }
+                        } else {
+                            // ①-②終了時間が30分以下
+                            for (let i = 0; i < differenceHour; i++) {
+                                for (let v of minutes) {
+                                    const time = `${Number(startHour) + Number(i)}:${v}`;
+                                    state.shapeEmployeeSchedules.push({
+                                        id: schedule.organizer.email,
+                                        time: time,
+                                        day: startDate,
+                                    });
+                                }
+                                //終了時間が0のときは値を追加しない
+                                if (endMinute !== '00') {
+                                    const time = `${Number(endHour)}:${minutes[0]}`;
+                                    state.shapeEmployeeSchedules.push({
+                                        id: schedule.organizer.email,
+                                        time: time,
+                                        day: startDate,
                                     });
                                 }
                             }
                         }
                     } else {
-                        //②開始時間と終了時間の分が違うケース
+                        //②開始時間が30分以下
+                        // ②-①終了時間が30分超
+                        if (endMinute > 30) {
+                            //30分前の値を追加
+                            const time = `${Number(startHour) - 1}:${minutes[1]}`;
+                            state.shapeEmployeeSchedules.push({
+                                id: schedule.organizer.email,
+                                time: time,
+                                day: startDate,
+                            });
+                            for (let i = 0; i <= differenceHour; i++) {
+                                for (let v of minutes) {
+                                    const time = `${Number(startHour) + Number(i)}:${v}`;
+                                    state.shapeEmployeeSchedules.push({
+                                        id: schedule.organizer.email,
+                                        time: time,
+                                        day: startDate,
+                                    });
+                                }
+                            }
+                        } else {
+                            //30分前の値を追加
+                            const time = `${Number(startHour) - 1}:${minutes[1]}`;
+                            state.shapeEmployeeSchedules.push({
+                                id: schedule.organizer.email,
+                                time: time,
+                                day: startDate,
+                            });
+                            for (let i = 0; i < differenceHour; i++) {
+                                for (let v of minutes) {
+                                    const time = `${Number(startHour) + Number(i)}:${v}`;
+                                    state.shapeEmployeeSchedules.push({
+                                        id: schedule.organizer.email,
+                                        time: time,
+                                        day: startDate,
+                                    });
+                                }
+                            }
+                        }
                     }
                 });
             }
@@ -162,30 +195,24 @@ export const mutations = {
             .add(2, 'hours')
             .format('HH:mm');
 
-        console.log(state.shapeEmployeeSchedules);
-
-        // state.shapeEmployeeSchedules.forEach(schedule => {
-        //     state.dateEmptyArray.forEach(date => {
-        //         if (
-        //             schedule.day === date.day &&
-        //             schedule.time === date.time &&
-        //             date.id.indexOf(schedule.id) == -1
-        //         ) {
-        //             console.log(schedule.day);
-        //             console.log(schedule.time);
-        //             console.log(schedule.id);
-        //             date.id.push(schedule.id);
-        //             date.emptyNum--;
-        //             if (date.emptyNum === 0) {
-        //                 date.isEmpty = false;
-        //             }
-        //         }
-        //         if (date.day === currentDate && date.time <= nonReserveTime) {
-        //             date.isEmpty = false;
-        //         }
-        //     });
-        // });
-        // console.log(state.dateEmptyArray);
+        state.shapeEmployeeSchedules.forEach(schedule => {
+            state.dateEmptyArray.forEach(date => {
+                if (
+                    schedule.day === date.day &&
+                    schedule.time === date.time &&
+                    date.id.indexOf(schedule.id) == -1
+                ) {
+                    date.id.push(schedule.id);
+                    date.emptyNum--;
+                    if (date.emptyNum === 0) {
+                        date.isEmpty = false;
+                    }
+                }
+                if (date.day === currentDate && date.time <= nonReserveTime) {
+                    date.isEmpty = false;
+                }
+            });
+        });
     },
 };
 
