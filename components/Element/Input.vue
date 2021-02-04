@@ -118,6 +118,7 @@ export default {
             this.$store.commit('footer/visibilityChanged3');
         },
         async reserve() {
+            this.$router.push('/thanks');
             await Promise.all([
                 this.$axios.$post('http://localhost:5000/api/reserve', {
                     calendarID: this.calendarID,
@@ -135,13 +136,9 @@ export default {
                     firstName: this.firstName,
                     lastName: this.lastName,
                 }),
-            ])
-                .then(() => {
-                    this.$router.push('/thanks');
-                })
-                .catch((err) => {
-                    console.log(err);
-                });
+            ]).catch((err) => {
+                console.log(err);
+            });
         },
     },
 };

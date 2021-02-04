@@ -1,24 +1,23 @@
 <template>
     <div class="container">
         <h2 class="main-heading">ご予約ありがとうございます</h2>
-        <h3 class="sub-heading">XX月XX日 {{ startTime }}</h3>
+        <h3 class="sub-heading">{{ start }}</h3>
         <p class="text">にご予約を承りました</p>
 
         <h3 class="sub-heading">当日担当するスタッフ</h3>
         <div v-for="content in employees.contents" :key="content.id">
             <div v-if="store === content.storeName.location">
-                <!-- 本当はこちらでチェックする -->
-                <!-- <div v-if="employeeEmail === content.calendar_Id"> -->
-                <div class="staff-wrapper">
-                    <img :src="content.image.url" :alt="content.name" />
-                    <h3>{{ content.name }}</h3>
-                    <p v-if="store === 'オンライン相談'">
-                        メールにて当日のご案内を後ほどお送りいたします。
-                    </p>
-                    <p v-else>ご来店お待ちしております。</p>
-                    <p class="margin-text">当日はよろしくお願いいたします。</p>
+                <div v-if="employeeEmail === content.calendar_Id">
+                    <div class="staff-wrapper">
+                        <img :src="content.image.url" :alt="content.name" />
+                        <h3>{{ content.name }}</h3>
+                        <p v-if="store === 'オンライン相談'">
+                            メールにて当日のご案内をお送りいたします。
+                        </p>
+                        <p v-else>ご来店お待ちしております。</p>
+                        <p class="margin-text">当日はよろしくお願いいたします。</p>
+                    </div>
                 </div>
-                <!-- </div> -->
             </div>
         </div>
     </div>
@@ -33,7 +32,6 @@ export default {
                 'X-API-KEY': process.env.API_KEY,
             },
         });
-
         return {
             employees,
         };
@@ -44,14 +42,20 @@ export default {
         };
     },
     computed: {
-        startTime() {
-            return this.$store.state.startTime;
+        start() {
+            const dateTime = `${this.$store.state.calendar.dayPicker}${this.$store.state.time.startTime}`;
+            const date = `${dateTime.substr(0, 4)}年${dateTime.substr(5, 2)}月${dateTime.substr(
+                8,
+                2
+            )}日`;
+            const time = `${dateTime.substr(10, 5)}`;
+            return `${date}  ${time}`;
         },
         store() {
-            return this.$store.state.store;
+            return this.$store.state.storeSelect.store;
         },
         employeeEmail() {
-            return this.$store.state.employeeEmail;
+            return this.$store.state.staffSelect.employeeEmail;
         },
     },
 };

@@ -33,16 +33,17 @@
                             class="table-td"
                             v-for="(time, index) in chooseDateEmptyArray"
                             :key="index"
+                            @click="pickTime(time)"
                         >
-                            <fa
-                                :icon="time.isEmpty ? ['far', 'circle'] : 'times'"
-                                @click="pickTime(time)"
-                            />
+                            <fa :icon="time.isEmpty ? ['far', 'circle'] : 'times'" />
+                            <p class="empty-num">{{ time.emptyNum }}</p>
                         </td>
                     </tr>
                 </tbody>
             </table>
         </div>
+        <p class="supplement">※横にスクロールしてください</p>
+        <p class="supplement">※数字はその時間にあと何名予約できるかを表しています</p>
     </div>
 </template>
 
@@ -162,5 +163,13 @@ export default {
             white-space: nowrap;
         }
     }
+}
+.empty-num {
+    line-height: 1;
+    font-size: 0.75rem;
+}
+.supplement {
+    font-size: 0.5rem;
+    text-align: left;
 }
 </style>

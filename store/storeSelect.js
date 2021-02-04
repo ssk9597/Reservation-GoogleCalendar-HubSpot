@@ -209,6 +209,7 @@ export const mutations = {
                     }
                 }
                 if (date.day === currentDate && date.time <= nonReserveTime) {
+                    date.emptyNum = 0;
                     date.isEmpty = false;
                 }
             });
