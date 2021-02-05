@@ -154,12 +154,6 @@ export const mutations = {
             }
         });
         //連想配列の重複を削除する
-        // const array = state.shapeEmployeeSchedules.filter((el, index, self) => {
-        //     console.log(el);
-        //     console.log(index);
-        //     console.log(self);
-        // });
-        // console.log(array);
     },
     setCalendarDate(state) {
         const thisMonth = moment();
