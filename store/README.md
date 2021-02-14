@@ -1,10 +1,7 @@
 # STORE
 
-**This directory is not required, you can delete it if you don't want to use it.**
+## index
 
-This directory contains your Vuex Store files.
-Vuex Store option is implemented in the Nuxt.js framework.
-
-Creating a file in this directory automatically activates the option in the framework.
-
-More information about the usage of this directory in [the documentation](https://nuxtjs.org/guide/vuex-store).
+storeSelect.js
+action の実行順番で躓く
+https://qiita.com/jkr_2255/items/62b3ee3361315d55078a
