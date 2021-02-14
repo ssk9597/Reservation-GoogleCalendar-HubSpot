@@ -189,8 +189,12 @@ export const mutations = {
             .add(2, 'hours')
             .format('HH:mm');
 
-        state.shapeEmployeeSchedules.forEach(schedule => {
-            state.dateEmptyArray.forEach(date => {
+        state.dateEmptyArray.forEach(date => {
+            if (date.day === currentDate && date.time <= nonReserveTime) {
+                date.emptyNum = 0;
+                date.isEmpty = false;
+            }
+            state.shapeEmployeeSchedules.forEach(schedule => {
                 if (
                     schedule.day === date.day &&
                     schedule.time === date.time &&
@@ -201,10 +205,6 @@ export const mutations = {
                     if (date.emptyNum === 0) {
                         date.isEmpty = false;
                     }
-                }
-                if (date.day === currentDate && date.time <= nonReserveTime) {
-                    date.emptyNum = 0;
-                    date.isEmpty = false;
                 }
             });
         });
