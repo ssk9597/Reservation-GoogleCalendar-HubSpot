@@ -233,6 +233,9 @@ export const actions = {
                                 results.message.forEach(result => {
                                     employeeSchedules.push(result);
                                 });
+                            })
+                            .catch(err => {
+                                console.log(err.response);
                             });
                     }
                 })
