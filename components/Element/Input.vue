@@ -121,22 +121,28 @@ export default {
             if (this.calendarID && this.location && this.start) {
                 this.$router.push('/thanks');
                 await Promise.all([
-                    this.$axios.$post('http://localhost:5000/api/reserve', {
-                        calendarID: this.calendarID,
-                        summary: this.summary,
-                        location: this.location,
-                        description: this.description,
-                        start: this.start,
-                        end: this.end,
-                        //GSuiteじゃないとエラーが出るっぽい
-                        // attendees1: this.attendees1,
-                        // attendees2: this.attendees2,
-                    }),
-                    this.$axios.$post('http://localhost:5000/api/hubspot', {
-                        email: this.userEmail,
-                        firstName: this.firstName,
-                        lastName: this.lastName,
-                    }),
+                    this.$axios.$post(
+                        'https://reserve-hubspot-googlecalendar.netlify.app/api/reserve',
+                        {
+                            calendarID: this.calendarID,
+                            summary: this.summary,
+                            location: this.location,
+                            description: this.description,
+                            start: this.start,
+                            end: this.end,
+                            //GSuiteじゃないとエラーが出るっぽい
+                            // attendees1: this.attendees1,
+                            // attendees2: this.attendees2,
+                        }
+                    ),
+                    this.$axios.$post(
+                        'https://reserve-hubspot-googlecalendar.netlify.app/api/hubspot',
+                        {
+                            email: this.userEmail,
+                            firstName: this.firstName,
+                            lastName: this.lastName,
+                        }
+                    ),
                 ]);
             } else {
                 alert(

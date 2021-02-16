@@ -226,7 +226,9 @@ export const actions = {
                 employees.contents.map(async employee => {
                     if (state.store === employee.storeName.location) {
                         await this.$axios
-                            .$get(`http://localhost:5000/api/receive/${employee.calendar_Id}`)
+                            .$get(
+                                `https://reserve-hubspot-googlecalendar.netlify.app/api/receive/${employee.calendar_Id}`
+                            )
                             .then(results => {
                                 results.message.forEach(result => {
                                     employeeSchedules.push(result);
