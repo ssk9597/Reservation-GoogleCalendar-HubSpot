@@ -7,6 +7,8 @@ GoogleCalendar の予定状況を見て空いている時間に予約ができ�
 
 ## URL
 
+https://reserve-hubspot-googlecalendar.netlify.app/
+
 ## なぜ作ったか
 
 ### ①CRM と連携した予約管理サービスがないため
