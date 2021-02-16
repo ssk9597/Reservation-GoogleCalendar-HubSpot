@@ -25,6 +25,7 @@ https://reserve-hubspot-googlecalendar.netlify.app/
 > 店舗選択 → 日付選択 → 空いているスタッフ
 
 ただ HubSpot のフローは以下の通りです。
+
 ○ 現在のフロー
 
 > 店舗選択 → スタッフ選択 → 日時選択
