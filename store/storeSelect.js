@@ -227,7 +227,7 @@ export const actions = {
                     if (state.store === employee.storeName.location) {
                         await this.$axios
                             .$get(
-                                `https://reserve-hubspot-googlecalendar.netlify.app/api/receive/${employee.calendar_Id}`
+                                `https://reserve-hubspot-googlecalendar.netlify.app:5000/api/receive/${employee.calendar_Id}`
                             )
                             .then(results => {
                                 results.message.forEach(result => {
