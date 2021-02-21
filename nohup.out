@@ -1,0 +1,16 @@
+
+> frontend@1.0.0 start /Users/ryo/Desktop/MENTA_B-Teck/ポートフォリオ/frontend
+> nuxt start
+
+ℹ Listening on: http://localhost:3000/
+ℹ Serving static application from dist/
+
+> frontend@1.0.0 start /Users/ryo/Desktop/MENTA_B-Teck/ポートフォリオ/frontend
+> nuxt start
+
+
+ WARN  Address localhost:3000 is already in use.
+
+ℹ Trying a random port...
+ℹ Listening on: http://localhost:55714/
+ℹ Serving static application from dist/
