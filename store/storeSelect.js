@@ -225,6 +225,7 @@ export const actions = {
             await Promise.all(
                 employees.contents.map(async employee => {
                     if (state.store === employee.storeName.location) {
+                        console.log(employee.calendar_Id);
                         const calendarId = employee.calendar_Id.substring(
                             0,
                             employee.calendar_Id.indexOf('@')
