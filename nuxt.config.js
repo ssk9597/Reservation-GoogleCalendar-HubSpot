@@ -53,4 +53,7 @@ export default {
         locales: ['ja'],
     },
     env: { API_KEY, HUBSPOT_KEY },
+    generate: {
+        fallback: true,
+    },
 };
