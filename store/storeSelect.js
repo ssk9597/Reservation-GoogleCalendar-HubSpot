@@ -230,6 +230,7 @@ export const actions = {
                             0,
                             employee.calendar_Id.indexOf('@')
                         );
+                        console.log(calendarId);
                         await this.$axios
                             .$get(
                                 `https://reservationhubspotgoogle.herokuapp.com/api/receive/${calendarId}`
