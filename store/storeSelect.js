@@ -234,6 +234,7 @@ export const actions = {
                                 `https://reservationhubspotgoogle.herokuapp.com/api/receive/${calendarId}`
                             )
                             .then(results => {
+                                console.log(results);
                                 results.message.forEach(result => {
                                     employeeSchedules.push(result);
                                 });
