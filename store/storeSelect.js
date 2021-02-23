@@ -225,9 +225,13 @@ export const actions = {
             await Promise.all(
                 employees.contents.map(async employee => {
                     if (state.store === employee.storeName.location) {
+                        const calendarId = employee.calendar_Id.substring(
+                            0,
+                            employee.calendar_Id.indexOf('@')
+                        );
                         await this.$axios
                             .$get(
-                                `https://reserve-hubspot-googlecalendar.netlify.app/api/receive/${employee.calendar_Id}`
+                                `https://reserve-hubspot-googlecalendar.netlify.app/api/receive/${calendarId}`
                             )
                             .then(results => {
                                 results.message.forEach(result => {
