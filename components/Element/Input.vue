@@ -122,7 +122,7 @@ export default {
                 this.$router.push('/thanks');
                 await Promise.all([
                     this.$axios.$post(
-                        'https://reserve-hubspot-googlecalendar.netlify.app/api/reserve',
+                        'https://reservationhubspotgoogle.herokuapp.com/api/reserve',
                         {
                             calendarID: this.calendarID,
                             summary: this.summary,
@@ -136,7 +136,7 @@ export default {
                         }
                     ),
                     this.$axios.$post(
-                        'https://reserve-hubspot-googlecalendar.netlify.app/api/hubspot',
+                        'https://reservationhubspotgoogle.herokuapp.com/api/hubspot',
                         {
                             email: this.userEmail,
                             firstName: this.firstName,

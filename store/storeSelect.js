@@ -231,7 +231,7 @@ export const actions = {
                         );
                         await this.$axios
                             .$get(
-                                `https://reserve-hubspot-googlecalendar.netlify.app/api/receive/${calendarId}`
+                                `https://reservationhubspotgoogle.herokuapp.com/api/receive/${calendarId}`
                             )
                             .then(results => {
                                 results.message.forEach(result => {
