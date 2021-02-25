@@ -225,15 +225,10 @@ export const actions = {
             await Promise.all(
                 employees.contents.map(async employee => {
                     if (state.store === employee.storeName.location) {
-                        console.log(employee.calendar_Id);
-                        const calendarId = employee.calendar_Id.substring(
-                            0,
-                            employee.calendar_Id.indexOf('@')
-                        );
-                        console.log(calendarId);
                         await this.$axios
                             .$get(
-                                `https://reservationhubspotgoogle.herokuapp.com/api/receive/${calendarId}`
+                                `http://localhost:5000/api/receive/${employee.calendar_Id}`
+                                // `https://reservationhubspotgoogle.herokuapp.com/api/receive/${employee.calendar_Id}`
                             )
                             .then(results => {
                                 console.log(results);
