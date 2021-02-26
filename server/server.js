@@ -5,8 +5,8 @@ const cors = require('cors');
 
 const app = express();
 
-const config = require('./config.json')[app.get('env')];
-console.log(config.host);
+// const config = require('./config.json')[app.get('env')];
+// console.log(config.host);
 
 //middleware
 app.use(cors());
