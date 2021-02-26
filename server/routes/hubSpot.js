@@ -8,7 +8,7 @@ router.post('/hubspot', (req, res) => {
     try {
         const request = require('request');
 
-        const hubSpot_KEY = require('../config.json')[app.get('env')].HubSpot_KEY;
+        const hubSpot_KEY = require('./hubspot.json')[app.get('env')].HubSpot_KEY;
 
         const options = {
             method: 'POST',

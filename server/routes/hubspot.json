@@ -1,0 +1,10 @@
+{
+    "development": {
+        "host": "test-server",
+        "HubSpot_KEY": "90011383-1fb0-42f7-9333-1b6144569e32"
+    },
+    "production": {
+        "host": "production-server",
+        "HubSpot_KEY": "90011383-1fb0-42f7-9333-1b6144569e32"
+    }
+}
