@@ -20,10 +20,15 @@ const hubSpotRoutes = require('./routes/hubSpot');
 app.use('/api', calendarRoutes);
 app.use('/api', hubSpotRoutes);
 
-app.listen(5000, err => {
-    if (err) {
-        console.log(err);
-    } else {
-        console.log('サーバーを接続しました');
-    }
-});
+// app.listen(5000, err => {
+//     if (err) {
+//         console.log(err);
+//     } else {
+//         console.log('サーバーを接続しました');
+//     }
+// });
+
+module.exports = {
+    path: '/server',
+    handler: app,
+};

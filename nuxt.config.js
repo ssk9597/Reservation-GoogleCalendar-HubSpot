@@ -56,4 +56,5 @@ export default {
     generate: {
         fallback: true,
     },
+    serverMiddleware: ['~/server/server'],
 };

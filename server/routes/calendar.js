@@ -2,9 +2,6 @@ const router = require('express').Router();
 
 //GET-- カレンダーの予定をすべて受け取る
 router.get('/receive/:id', (req, res) => {
-    // res.json({
-    //     message: 'Hello,world',
-    // });
     try {
         const { google } = require('googleapis');
         const file = './googleCalendar.json';
