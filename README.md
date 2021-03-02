@@ -7,7 +7,7 @@ GoogleCalendar の予定状況を見て空いている時間に予約ができ�
 
 ## URL
 
-https://reserve-hubspot-googlecalendar.netlify.app/
+https://calendarreservation.herokuapp.com/
 
 ## なぜ作ったか
 
