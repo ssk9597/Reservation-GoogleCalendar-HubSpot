@@ -121,28 +121,22 @@ export default {
             if (this.calendarID && this.location && this.start) {
                 this.$router.push('/thanks');
                 await Promise.all([
-                    this.$axios.$post(
-                        'https://reservationhubspotgoogle.herokuapp.com/api/reserve',
-                        {
-                            calendarID: this.calendarID,
-                            summary: this.summary,
-                            location: this.location,
-                            description: this.description,
-                            start: this.start,
-                            end: this.end,
-                            //GSuiteじゃないとエラーが出るっぽい
-                            // attendees1: this.attendees1,
-                            // attendees2: this.attendees2,
-                        }
-                    ),
-                    this.$axios.$post(
-                        'https://reservationhubspotgoogle.herokuapp.com/api/hubspot',
-                        {
-                            email: this.userEmail,
-                            firstName: this.firstName,
-                            lastName: this.lastName,
-                        }
-                    ),
+                    this.$axios.$post('https://calendarreservation.herokuapp.com/api/reserve', {
+                        calendarID: this.calendarID,
+                        summary: this.summary,
+                        location: this.location,
+                        description: this.description,
+                        start: this.start,
+                        end: this.end,
+                        //GSuiteじゃないとエラーが出るっぽい
+                        // attendees1: this.attendees1,
+                        // attendees2: this.attendees2,
+                    }),
+                    this.$axios.$post('https://calendarreservation.herokuapp.com/api/hubspot', {
+                        email: this.userEmail,
+                        firstName: this.firstName,
+                        lastName: this.lastName,
+                    }),
                 ]);
             } else {
                 alert(

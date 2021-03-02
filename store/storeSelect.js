@@ -228,7 +228,7 @@ export const actions = {
                         await this.$axios
                             .$get(
                                 // `http://localhost:5000/api/receive/${employee.calendar_Id}`
-                                `https://reservationhubspotgoogle.herokuapp.com/api/receive/${employee.calendar_Id}`
+                                `https://calendarreservation.herokuapp.com/api/receive/${employee.calendar_Id}`
                             )
                             .then(results => {
                                 console.log(results);
