@@ -1,2 +1,3 @@
 web: nuxt start
+web: cd server
 web: node server.js
