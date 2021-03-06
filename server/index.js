@@ -17,10 +17,6 @@ const hubSpotRoutes = require('./routes/hubSpot');
 app.use('/', calendarRoutes);
 app.use('/', hubSpotRoutes);
 
-app.get('/index', (req, res) => {
-    res.json('Hello World');
-});
-
 module.exports = {
     path: '/api',
     handler: app,

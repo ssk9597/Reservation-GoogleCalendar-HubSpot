@@ -105,13 +105,6 @@ export default {
         end() {
             return `${this.$store.state.calendar.dayPicker}T${this.$store.state.time.endTime}:00`;
         },
-        //GSuiteじゃないとエラーが出るっぽい
-        // attendees1() {
-        //     return this.$store.state.input.userEmail;
-        // },
-        // attendees2() {
-        //     return this.$store.state.staffSelect.employeeEmail;
-        // },
     },
     methods: {
         visibilityChanged3() {
@@ -128,9 +121,6 @@ export default {
                         description: this.description,
                         start: this.start,
                         end: this.end,
-                        //GSuiteじゃないとエラーが出るっぽい
-                        // attendees1: this.attendees1,
-                        // attendees2: this.attendees2,
                     }),
                     this.$axios.$post('https://calendarreservation.herokuapp.com/api/hubspot', {
                         email: this.userEmail,
