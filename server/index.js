@@ -14,8 +14,8 @@ app.use(bodyParser.urlencoded({ extended: false }));
 const calendarRoutes = require('./routes/calendar');
 const hubSpotRoutes = require('./routes/hubSpot');
 
-app.use('/api', calendarRoutes);
-app.use('/api', hubSpotRoutes);
+app.use('/', calendarRoutes);
+app.use('/', hubSpotRoutes);
 
 app.get('/index', (req, res) => {
     res.json('Hello World');
