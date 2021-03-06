@@ -1,5 +1,9 @@
 const router = require('express').Router();
 
+router.get('/index', (req, res) => {
+    res.json('Hello World');
+});
+
 //GET-- カレンダーの予定をすべて受け取る
 router.get('/receive/:id', (req, res) => {
     try {

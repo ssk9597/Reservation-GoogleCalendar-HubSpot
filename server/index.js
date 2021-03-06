@@ -5,9 +5,6 @@ const cors = require('cors');
 
 const app = express();
 
-// const config = require('./config.json')[app.get('env')];
-// console.log(config.host);
-
 //middleware
 app.use(cors());
 app.use(bodyParser.json());
@@ -20,15 +17,11 @@ const hubSpotRoutes = require('./routes/hubSpot');
 app.use('/api', calendarRoutes);
 app.use('/api', hubSpotRoutes);
 
-app.listen(5000, err => {
-    if (err) {
-        console.log(err);
-    } else {
-        console.log('サーバーを接続しました');
-    }
+app.get('/index', (req, res) => {
+    res.json('Hello World');
 });
 
 module.exports = {
-    path: '/server',
+    path: '/api',
     handler: app,
 };
